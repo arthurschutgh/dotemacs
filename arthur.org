@@ -357,7 +357,7 @@
 ;;   )
     #+end_src
 * when emacs closes
-  Apparently I need the delete-file function otherwise emacs won't see
+  Apparently I need to delete arthur.el file otherwise emacs won't see
   changes to this file.
 
   #+begin_src emacs-lisp :tangle yes
