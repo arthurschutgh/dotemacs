@@ -358,7 +358,7 @@
     #+end_src
 * when emacs closes
   Apparently I need to delete arthur.el file otherwise emacs won't see
-  changes to this file.
+  changes to arthur.org.
 
   #+begin_src emacs-lisp :tangle yes
     (add-hook 'kill-emacs-hook #'persp-state-save) ;; what does # do?
