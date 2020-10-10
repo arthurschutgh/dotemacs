@@ -4,14 +4,24 @@
     (require 'org)
     (org-babel-load-file "/home/arthur/.emacs.d/arthur.org")
   #+end_src
+** emacs and opening symlinks that point to files under version control
+  This file lives in ~/projects/emacs.d/. Initially I symlinked
+  ~/.emacs.d/init.el and ~/.emacs.d/arthur.org/ to
+  ~/projects/emacs.d/init.el and ~/projects/emacs.d/arthur.org but
+  Emacs doesn't like opening symbolic links to files under version
+  control (~/projects/emacs.d/ is a git repository). For now I solved
+  the problem by hardlinking.
 ** todo
-*** TODO put this in version control
-*** TODO write README.org for github
-*** TODO publish to github
+*** DONE put this in version control
+*** DONE write README.org for github
+*** DONE publish to github
 *** TODO polish this configuration
+*** TODO look into opening symbolic links to files under version control
 *** TODO install magit
 *** TODO clean up startup section
 *** TODO configure python environment
+*** TODO make :ensure the default for use-package
+*** TODO add capture template for quick notes to refile
 * startup
   
 #+begin_src emacs-lisp :tangle yes
@@ -40,6 +50,7 @@
   ;; (global-hl-line-mode t) ;; easy to find point (point is emacs jargon for cursor)
   ;; (global-linum-mode t)
 
+  ;; I don't want to type yes or no
   (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; calendar
@@ -77,11 +88,15 @@
 * use-package installation
   #+begin_src emacs-lisp :tangle yes
     ;; use-package
+    ;; https://github.com/jwiegley/use-package#installing-use-package
+
+    ;; this automatically installs use-package
+    ;; with this construct I only need to pull in my config files
+    ;; from github and Emacs behaves the way I want... :-)
     (unless (package-installed-p 'use-package)
       (package-refresh-contents)
       (package-install 'use-package)
       )
-    ;; https://github.com/jwiegley/use-package#installing-use-package
     ;; read use-package documentation
     (eval-when-compile
       ;; Following line is not needed if use-package.el is in ~/.emacs.d
@@ -91,35 +106,38 @@
 * packages
 ** org-mode
    #+begin_src emacs-lisp :tangle yes
-;; org-mode
-;; https://orgmode.org/
-(use-package org
-  :init (setq org-export-backends '(ascii html icalendar latex md odt))
-  :ensure t
-  :demand t
-  :mode (("\\.org$" . org-mode))
-  :bind (("C-c l" . org-store-link)
-	 ("C-c a" . org-agenda)
-	 ("C-c c" . org-capture)
-	 ("C-c b" . org-switchb))
-  :config
-  (setq org-agenda-files '("~/projects/old-org/index.org"))
-  (setq org-agenda-todo-list-sublevels t)
-  (setq org-directory "~/projects/old-org/")
-  (setq org-startup-folded t)
-  (setq org-blank-before-new-entry (quote ((heading . nil)
-                                           (plain-list-item . nil))))
-  (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
-  )
+     ;; org-mode
+     ;; https://orgmode.org/
+     (use-package org
+       :init (setq org-export-backends '(ascii html icalendar latex md odt))
+       :ensure t
+       :demand t
+       :mode (("\\.org$" . org-mode))
+       :bind (("C-c l" . org-store-link)
+	      ("C-c a" . org-agenda)
+	      ("C-c c" . org-capture)
+	      ("C-c b" . org-switchb))
+       :config
+       (setq org-agenda-files '("~/projects/old-org/index.org"))
+       (setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
+       (setq org-directory "~/projects/old-org/")
+       (setq org-startup-folded t)
+       (setq org-blank-before-new-entry (quote ((heading . nil)
+						(plain-list-item . nil))))
+       (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
+       ;; the lambda in the line above is needed because of the -1 argument
+       (add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want in org-capture :-)
+       )
 
-;; org-capture
-;; FIXME add todo item
-(setq org-capture-templates
-      '(("a" "Maak afspraak")
-	("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/personal/old-org/index.org") "* %T %?")
-	("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/personal/old-org/index.org") "* %T %?")
-	("d" "dagboek" entry (file+datetree "~/personal/old-org/journal.org") "* %U\n%?")
-	))
+     ;; org-capture
+     ;; FIXME add todo item
+     (setq org-capture-templates
+	   '(("a" "Maak afspraak")
+	     ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
+	     ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
+	     ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
+	     )
+	   )
    #+end_src
 ** diminish
 #+begin_src emacs-lisp :tangle yes
@@ -141,6 +159,7 @@
    #+begin_src emacs-lisp :tangle yes
 ;; avy
 ;; https://github.com/abo-abo/avy
+;; move point to any character on the screen with only C-:
 (use-package avy
   :ensure t
   :bind (("C-:" . avy-goto-char))
@@ -281,8 +300,10 @@
 	:ensure t
 	:after perspective
 	:config
+	  ;; is it necessary to load it here?
 	(if (file-exists-p persp-state-default-file) (persp-state-load persp-state-default-file))
-	 ;; is it necessary to load it here?
+	;; the if construct prevents an error message when starting emacs
+	;; with a clean ~/.emacs.d/elpa/ directory
 	)
     #+end_src
 ** language specific packages
