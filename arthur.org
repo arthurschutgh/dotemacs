@@ -1,0 +1,345 @@
+* emacs config [2020-10-10 Sat]
+  This is my emacs configuration. Put the following code in init.el:
+  #+begin_src emacs-lisp :tangle no
+    (require 'org)
+    (org-babel-load-file "/home/arthur/.emacs.d/arthur.org")
+  #+end_src
+** todo
+*** TODO put this in version control
+*** TODO write README.org for github
+*** TODO publish to github
+*** TODO polish this configuration
+*** TODO install magit
+*** TODO clean up startup section
+*** TODO configure python environment
+* startup
+  
+#+begin_src emacs-lisp :tangle yes
+  (setq gc-cons-threshold (* 50 1024 1024)
+	gc-cons-percentage 0.6
+	;; read-process-output-max
+	)
+
+  ;; no backups
+  (setq auto-save-default nil)
+  (setq make-backup-files nil)
+  ;; FIXME what does this variable?
+  (setq auto-save-list-file-prefix nil)
+
+  ;; startup and appearance
+  (setq inhibit-startup-message t)
+  (setq inhibit-splash-screen t)
+  (tool-bar-mode -1)
+  ;; browsing the menu makes it easy to discover keybindings
+  ;; (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  ;; (blink-cursor-mode -1)
+
+  (load-theme 'wombat)
+
+  ;; (global-hl-line-mode t) ;; easy to find point (point is emacs jargon for cursor)
+  ;; (global-linum-mode t)
+
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+  ;; calendar
+  (setq calendar-week-start-day 1)
+  (setq calendar-date-style 'iso)
+
+  ;; modeline config
+  ;; clock
+  (setq display-time-24hr-format t)
+  ;; no indicator for Mail
+  (setq display-time-mail-string "")
+  ;; no indicator for load average
+  (setq display-time-default-load-average nil)
+  ;; i3bar displays time
+  ;; (display-time-mode t)
+  (line-number-mode t)
+  (column-number-mode t)
+
+  ;; use auto-fill-mode when editing .txt files
+  (add-hook 'text-mode-hook 'auto-fill-mode)
+
+  ;; (defun arh/ansi-term () (interactive) (ansi-term "bash"))
+  ;; (global-set-key (kbd "C-c t") 'arh/ansi-term)
+  ;; FIXME make keybinding for eshell
+#+end_src
+* melpa config
+  #+begin_src emacs-lisp :tangle yes
+    (require 'package)
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+    ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+    ;; and `package-pinned-packages`. Most users will not need or want to do this.
+    ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+    (package-initialize)
+  #+end_src
+* use-package installation
+  #+begin_src emacs-lisp :tangle yes
+    ;; use-package
+    (unless (package-installed-p 'use-package)
+      (package-refresh-contents)
+      (package-install 'use-package)
+      )
+    ;; https://github.com/jwiegley/use-package#installing-use-package
+    ;; read use-package documentation
+    (eval-when-compile
+      ;; Following line is not needed if use-package.el is in ~/.emacs.d
+      ;; (add-to-list 'load-path "<path where use-package is installed>")
+      (require 'use-package))
+  #+end_src
+* packages
+** org-mode
+   #+begin_src emacs-lisp :tangle yes
+;; org-mode
+;; https://orgmode.org/
+(use-package org
+  :init (setq org-export-backends '(ascii html icalendar latex md odt))
+  :ensure t
+  :demand t
+  :mode (("\\.org$" . org-mode))
+  :bind (("C-c l" . org-store-link)
+	 ("C-c a" . org-agenda)
+	 ("C-c c" . org-capture)
+	 ("C-c b" . org-switchb))
+  :config
+  (setq org-agenda-files '("~/projects/old-org/index.org"))
+  (setq org-agenda-todo-list-sublevels t)
+  (setq org-directory "~/projects/old-org/")
+  (setq org-startup-folded t)
+  (setq org-blank-before-new-entry (quote ((heading . nil)
+                                           (plain-list-item . nil))))
+  (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
+  )
+
+;; org-capture
+;; FIXME add todo item
+(setq org-capture-templates
+      '(("a" "Maak afspraak")
+	("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/personal/old-org/index.org") "* %T %?")
+	("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/personal/old-org/index.org") "* %T %?")
+	("d" "dagboek" entry (file+datetree "~/personal/old-org/journal.org") "* %U\n%?")
+	))
+   #+end_src
+** diminish
+#+begin_src emacs-lisp :tangle yes
+;; diminish
+;; https://github.com/myrjola/diminish.el
+(use-package diminish
+  :ensure t)
+#+end_src
+** which-key
+   #+begin_src emacs-lisp :tangle yes
+;; which-key
+;; https://github.com/justbur/emacs-which-key
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :config (which-key-mode 1))
+   #+end_src
+** avy
+   #+begin_src emacs-lisp :tangle yes
+;; avy
+;; https://github.com/abo-abo/avy
+(use-package avy
+  :ensure t
+  :bind (("C-:" . avy-goto-char))
+  )
+   #+end_src
+** yasnippet
+   #+begin_src emacs-lisp :tangle yes
+;;yasnippet
+;;https://github.com/joaotavora/yasnippet
+;; This seems to work very well :-)
+;; TAB is bound to yas-maybe-expand
+(use-package yasnippet
+  :ensure t
+  :diminish (yas-minor-mode)
+  :config (yas-global-mode 1)
+  )
+   #+end_src
+
+** yasnippet-snippets
+   #+begin_src emacs-lisp :tangle yes
+;;yasnippet-snippets
+;;https://github.com/AndreaCrotti/yasnippet-snippets
+(use-package yasnippet-snippets
+  :ensure t
+  )
+   #+end_src
+** company
+   #+begin_src emacs-lisp :tangle yes
+;; company
+;; https://github.com/company-mode/company-mode
+;; http://company-mode.github.io/
+;; FIXME use :hook
+;; FIXME configure company to refrain from completion in comment blocks
+(use-package company
+  ;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
+  :ensure t
+  :diminish company-mode
+  :demand t
+  :config
+  (setq company-idle-delay 0.0)
+  (add-hook 'prog-mode-hook 'company-mode)
+  ;; (global-company-mode t)
+  )
+   #+end_src
+** flycheck
+   #+begin_src emacs-lisp :tangle yes
+;; flycheck
+;; https://github.com/flycheck/flycheck
+;; FIXME use :hook
+(use-package flycheck
+  :ensure t
+  :diminish flycheck-mode
+  :config
+  (add-hook 'prog-mode-hook 'flycheck-mode)
+  )
+   #+end_src
+** flx-ido
+   #+begin_src emacs-lisp :tangle yes
+;; flx-ido
+;; https://github.com/lewang/flx
+;; flx-ido is recommended by projectile documentation
+(use-package flx-ido
+  :ensure t
+  :config
+  (require 'flx-ido)
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (flx-ido-mode 1)
+  (setq ido-enable-flex-matching t)
+  (setq ido-use-faces nil)
+  )
+   #+end_src
+** smartparens
+   #+begin_src emacs-lisp :tangle yes
+;; smartparens
+;; https://github.com/Fuco1/smartparens
+;; install according to these instructions:
+;; https://ebzzry.io/en/emacs-pairs/
+;; First: M-x package-install RET smartparens RET
+;; above command is not necessary
+(use-package smartparens-config
+  :ensure smartparens
+  :diminish smartparens-mode
+  :config (progn (show-smartparens-global-mode t)))
+
+(add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
+;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+;; smartparens seems to break C-- C-k to kill a line backwards
+   #+end_src
+** magit
+   #+begin_src emacs-lisp :tangle yes
+;; magit
+;; https://github.com/magit/magit
+;; TODO install magit
+   #+end_src
+** project management
+*** projectile
+    #+begin_src emacs-lisp :tangle yes
+      ;; projectile
+      ;; https://github.com/bbatsov/projectile
+      ;; https://docs.projectile.mx/projectile/index.html
+      ;; I am not sure about this:
+      ;; .projectile should live in the parent directory of directories which should be considered projects
+      ;; do not put .projectile in the directory which you consider a project
+      ;; This seems to work:
+      ;; Put .projectile in a project directory
+      ;; Run projectile-discover-projects-in-directory in the parent directory
+      (use-package projectile
+	:ensure t
+	:config
+	;; My keyboard has no super key
+	;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+	(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+	(setq projectile-project-search-path '("~/projects/" "~/source/repos"))
+	(setq projectile-indexing-method 'alien)
+	(projectile-mode +1)
+	)
+    #+end_src
+*** perspective
+    #+begin_src emacs-lisp :tangle yes
+      ;; perspective
+      ;; https://github.com/nex3/perspective-el
+      ;; https://github.com/nex3/perspective-el#some-musings-on-emacs-window-layouts
+      (use-package perspective
+	:ensure t
+	:after projectile
+	:config
+	(persp-mode) ;; create main perspective
+	(setq persp-state-default-file "/home/arthur/.emacs.d/perspective-state")
+	)
+    #+end_src
+*** persp-projectile
+    #+begin_src emacs-lisp :tangle yes
+      ;; persp-projectile
+      ;; https://github.com/bbatsov/persp-projectile
+      (use-package persp-projectile
+	:ensure t
+	:after perspective
+	:config
+	(if (file-exists-p persp-state-default-file) (persp-state-load persp-state-default-file))
+	 ;; is it necessary to load it here?
+	)
+    #+end_src
+** language specific packages
+*** old setup
+    #+begin_src emacs-lisp :tangle yes
+;; ================================================================================
+;; old setup
+;; ;; C#
+;; ;; csharp-mode
+;; (use-package csharp-mode
+;;   :ensure t
+;;   :mode "\\.cs\\'"
+;;   )
+
+;; ;; omnisharp
+;; ;; https://github.com/OmniSharp/omnisharp-emacs
+;; ;; on first start: M-x omnisharp-install-server
+;; ;; FIXME auto start omnisharp server?
+;; (use-package omnisharp
+;;   :ensure t
+;;   :after company
+;;   :hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
+;;   :config (add-to-list 'company-backends 'company-omnisharp))
+
+
+;; ;; python
+;; ;; anaconda needs setuptools
+;; ;; setuptools for python3 has already been installed on my system (Debian 10)
+;; ;; to use python3 set this variable
+;; (setq python-shell-interpreter "python3")
+;; ;; anaconda
+;; ;; https://github.com/pythonic-emacs/anaconda-mode
+;; (use-package anaconda-mode
+;;   :ensure t
+;;   :hook ((python-mode . anaconda-mode) ;; -hook is added by use-package.el
+;; 	 (python-mode . anaconda-eldoc-mode))
+;;   )
+
+;; (use-package company-anaconda
+;;   :ensure t
+;;   :after company
+;;   :config (add-to-list 'company-backends 'company-anaconda)
+;;   )
+
+;; ;; fsharp-mode
+;; ;; https://github.com/fsharp/emacs-fsharp-mode
+;; (use-package fsharp-mode
+;;   :defer t
+;;   :ensure t
+;;   :config (require 'eglot-fsharp)
+;;   )
+    #+end_src
+* when emacs closes
+  Apparently I need the delete-file function otherwise emacs won't see
+  changes to this file.
+
+  #+begin_src emacs-lisp :tangle yes
+    (add-hook 'kill-emacs-hook #'persp-state-save) ;; what does # do?
+    (add-hook 'kill-emacs-hook (lambda () (delete-file "/home/arthur/.emacs.d/arthur.el")))
+  #+end_src
