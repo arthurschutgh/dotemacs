@@ -22,6 +22,12 @@
 *** TODO configure python environment
 *** TODO make :ensure the default for use-package
 *** TODO add capture template for quick notes to refile
+*** TODO restructure .gitignore to ignore everything except for the files in this repository
+*** TODO configure org archiving
+*** TODO configure org refiling
+*** TODO look up my old emacs config for interesting code snippets
+*** TODO org-super-agenda?
+*** TODO move non-related code comments out of code blocks
 * startup
   
 #+begin_src emacs-lisp :tangle yes
@@ -139,12 +145,14 @@
 	     )
 	   )
    #+end_src
-** diminish
+** [[https://github.com/myrjola/diminish.el][diminish]]
+   With the amount of packages I use the modeline becomes cluttered
+   quickly. Diminish mode deletes indicators from the modeline.
 #+begin_src emacs-lisp :tangle yes
-;; diminish
-;; https://github.com/myrjola/diminish.el
-(use-package diminish
-  :ensure t)
+  ;; diminish
+  ;; https://github.com/myrjola/diminish.el
+  (use-package diminish
+    :ensure t)
 #+end_src
 ** which-key
    #+begin_src emacs-lisp :tangle yes
