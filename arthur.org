@@ -4,6 +4,8 @@
     (require 'org)
     (org-babel-load-file "/home/arthur/.emacs.d/arthur.org")
   #+end_src
+
+  Above code extract all code blocks from this file and executes it.
 ** emacs and opening symlinks that point to files under version control
   This file lives in ~/projects/emacs.d/. Initially I symlinked
   ~/.emacs.d/init.el and ~/.emacs.d/arthur.org/ to
@@ -12,13 +14,14 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** DONE put this in version control
-*** DONE write README.org for github
-*** DONE publish to github
+*** TODO tab-bar-mode?
+    Using it with perspective is not recommended...
+*** TODO google-translate?
+    https://github.com/atykhonov/google-translate
+*** TODO choose directory to put backup files
 *** TODO polish this configuration
 *** TODO look into opening symbolic links to files under version control
 *** TODO install magit
-*** DONE clean up startup section
 *** TODO configure python environment
 *** TODO make :ensure the default for use-package
 *** TODO add capture template for quick notes to refile
@@ -29,8 +32,12 @@
 *** TODO org-super-agenda?
 *** TODO move non-related code comments out of code blocks
 *** TODO treemacs?
+    treemacs-persp, treemacs-projectile
 *** TODO find better theme
-*** TODO choose directory to put backup files
+*** DONE put this in version control
+*** DONE write README.org for github
+*** DONE publish to github
+*** DONE clean up startup section
 * startup
 ** garbage collector
 #+begin_src emacs-lisp :tangle yes
@@ -92,7 +99,7 @@
   ;; (global-set-key (kbd "C-c t") 'arh/ansi-term)
   ;; FIXME make keybinding for eshell
 
-  ;; when killing a line kill the newline also
+  ;; when killing a line also kill the newline character
   (setq-default kill-whole-line t)
 #+end_src
 * [[https://melpa.org/#/][melpa]] config
@@ -177,7 +184,7 @@
   :config (which-key-mode 1))
    #+end_src
 ** avy
-   Move point to any character on the screen with only C-:
+   Move point to any character on the screen with C-:
    #+begin_src emacs-lisp :tangle yes
 ;; avy
 ;; https://github.com/abo-abo/avy

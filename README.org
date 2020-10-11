@@ -1,2 +1,43 @@
 * Emacs configuration
   This is my emacs configuration
+* Why Emacs?
+  - [[https://batsov.com/articles/2011/11/19/why-emacs/][Why Emacs? by Bozhidar Batsov]]
+  - [[https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/][The most successful malleable system in history]]
+  - [[https://www.gnu.org/software/emacs/tour/index.html][A Guided Tour of Emacs]]
+  - [[https://www.youtube.com/watch?v=jNa3axo40qM][Multiple cursors and macros]] *impressive!*
+* For beginners
+  Learning Emacs is a life long journey. Start by reading the
+  tutorial. Press C-h t to start the tutorial. This means: press
+  Ctrl-h followed by t.
+** basic configurations
+   After reading the tutorial experiment with these basic
+   customizations:
+   - [[https://www.youtube.com/watch?v=FRu8SRWuUko][Emacs configuration in 24 minutes]]
+   - [[https://medium.com/@suvratapte/configuring-emacs-from-scratch-intro-3157bed9d040][Configuring Emacs from Scratch - Intro]]
+** Emacs documenation
+*** Manual
+    - [[https://www.gnu.org/software/emacs/manual/emacs.html][GNU Emacs manual]]
+*** Emacs lisp
+    Leveraging the power of Emacs requires learning Emacs lisp.
+    - quick introduction (recommended!) [[https://learnxinyminutes.com/docs/elisp/][Learn X in Y minutes where X = elisp]]
+    - GNU manual about learning elisp [[https://www.gnu.org/software/emacs/manual/eintr.html][An Introduction to Programming in Emacs Lisp]]
+    - [[https://www.gnu.org/software/emacs/manual/elisp.html][GNU Emacs Lisp Reference Manual]] (not really needed by beginners)
+** org-mode
+   After gaining some experience with Emacs you can start
+   experimenting with org-mode. This package allows you to organize
+   your life in plain text files.
+   - [[https://orgmode.org/#docs][user manual]]
+   - [[http://doc.norang.ca/org-mode.html][org-mode setup by norang.ca]]
+** configurations by Emacs power users
+   These configurations feel intimidating. I find them useful to gain
+   new ideas. I didn't know there is even a google-translate package
+   for Emacs!
+   - [[https://github.com/jwiegley/dot-emacs][Emacs config by John Wiegley]]
+   - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
+   - [[https://github.com/bbatsov/emacs.d][Bozhidar's Emacs config]]
+   - [[https://github.com/magnars/.emacs.d][Emacs config by Magnar Sveen]]
+   - [[https://ladicle.com/post/config/][Emacs config by Aya Igarashi]]
+   - [[https://github.com/douglasdavis/dot-emacs][Emacs config by Doug Davis]]
+* Compiling Emacs 27.1 on Debian Buster (10)
+** todo
+*** TODO write this section
