@@ -1,28 +1,26 @@
 
 # Table of Contents
 
-1.  [Emacs configuration](#orgb75a581)
-2.  [Why Emacs?](#orgd98de7a)
-3.  [For beginners](#org58afadb)
-    1.  [basic configurations](#orged675b1)
-    2.  [Emacs documenation](#org3535ecf)
-        1.  [Manual](#orgdcad66a)
-        2.  [Emacs lisp](#org404ece1)
-    3.  [org-mode](#org226d79d)
-    4.  [configurations by Emacs power users](#org9bd2906)
-4.  [Compiling Emacs 27.1 on Debian Buster (10)](#org9142d7e)
-    1.  [todo](#orgfbff80a)
-        1.  [write this section](#orgf64fb0a)
+1.  [Emacs configuration](#orgd1674fc)
+2.  [Why Emacs?](#org07f16e8)
+3.  [For beginners](#orgff348c1)
+    1.  [basic configurations](#org781f3e4)
+    2.  [Emacs documenation](#org75a212e)
+        1.  [Manual](#org246cf27)
+        2.  [Emacs lisp](#orgc43c687)
+    3.  [org-mode](#org7e81ef6)
+    4.  [configurations by Emacs power users](#org0c12cd1)
+4.  [Compiling Emacs 27.1 on Debian Buster (10)](#orgaefb2ce)
 
 
-<a id="orgb75a581"></a>
+<a id="orgd1674fc"></a>
 
 # Emacs configuration
 
 This is my emacs configuration
 
 
-<a id="orgd98de7a"></a>
+<a id="org07f16e8"></a>
 
 # Why Emacs?
 
@@ -32,7 +30,7 @@ This is my emacs configuration
 -   [Multiple cursors and macros](https://www.youtube.com/watch?v=jNa3axo40qM) **impressive!**
 
 
-<a id="org58afadb"></a>
+<a id="orgff348c1"></a>
 
 # For beginners
 
@@ -41,7 +39,7 @@ tutorial. Press C-h t to start the tutorial. This means: press
 Ctrl-h followed by t.
 
 
-<a id="orged675b1"></a>
+<a id="org781f3e4"></a>
 
 ## basic configurations
 
@@ -52,30 +50,30 @@ customizations:
 -   [Configuring Emacs from Scratch - Intro](https://medium.com/@suvratapte/configuring-emacs-from-scratch-intro-3157bed9d040)
 
 
-<a id="org3535ecf"></a>
+<a id="org75a212e"></a>
 
 ## Emacs documenation
 
 
-<a id="orgdcad66a"></a>
+<a id="org246cf27"></a>
 
 ### Manual
 
 -   [GNU Emacs manual](https://www.gnu.org/software/emacs/manual/emacs.html)
 
 
-<a id="org404ece1"></a>
+<a id="orgc43c687"></a>
 
 ### Emacs lisp
 
 Leveraging the power of Emacs requires learning Emacs lisp.
 
--   quick introduction (recommended!) [Learn X in Y minutes where X = elisp](https://learnxinyminutes.com/docs/elisp/)
+-   quick introduction (**recommended**!) [Learn X in Y minutes where X = elisp](https://learnxinyminutes.com/docs/elisp/)
 -   GNU manual about learning elisp [An Introduction to Programming in Emacs Lisp](https://www.gnu.org/software/emacs/manual/eintr.html)
 -   [GNU Emacs Lisp Reference Manual](https://www.gnu.org/software/emacs/manual/elisp.html) (not really needed by beginners)
 
 
-<a id="org226d79d"></a>
+<a id="org7e81ef6"></a>
 
 ## org-mode
 
@@ -87,7 +85,7 @@ your life in plain text files.
 -   [org-mode setup by norang.ca](http://doc.norang.ca/org-mode.html)
 
 
-<a id="org9bd2906"></a>
+<a id="org0c12cd1"></a>
 
 ## configurations by Emacs power users
 
@@ -103,17 +101,28 @@ for Emacs!
 -   [Emacs config by Doug Davis](https://github.com/douglasdavis/dot-emacs)
 
 
-<a id="org9142d7e"></a>
+<a id="orgaefb2ce"></a>
 
 # Compiling Emacs 27.1 on Debian Buster (10)
 
-
-<a id="orgfbff80a"></a>
-
-## todo
-
-
-<a id="orgf64fb0a"></a>
-
-### TODO write this section
+1.  Install dependencies (execute as root)
+    
+        apt build-dep emacs
+        apt install libjansson-dev libcairo2-dev
+2.  Download [emacs-27.1.tar.gz](https://ftp.gnu.org/gnu/emacs/emacs-27.1.tar.gz) from ftp.gnu.org
+3.  Extract the archive with
+    
+        tar -xzf emacs-27.1.tar.gz
+4.  Change to emacs-27.1 directory
+    
+        cd emacs-27.1
+5.  Run configure with
+    
+        ./configure --with-cairo --prefix=/usr/local/
+6.  Run make and drink coffee
+    
+        make
+7.  Install emacs in `/usr/local/` (execute as root)
+    
+        make install
 
