@@ -5,7 +5,7 @@
     (org-babel-load-file "/home/arthur/.emacs.d/arthur.org")
   #+end_src
 
-  Above code extracts all code blocks with keyword :tangle yes from
+  Above code extracts all code blocks with keyword =:tangle yes= from
   this file and executes it.
 
   =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have two
@@ -353,7 +353,7 @@
     #+end_src
 ** language specific packages
 *** old setup
-    Use :tangle no to prevent extraction of this code block. I can
+    Use =:tangle no= to prevent extraction of this code block. I can
     leave the code uncommented. Better display on github. :-)
     #+begin_src emacs-lisp :tangle no
       ;; ================================================================================
