@@ -57,31 +57,45 @@
   ;; FIXME what does this variable?
   (setq auto-save-list-file-prefix nil)
 #+end_src
-** appearance
+** quiet startup
 #+begin_src emacs-lisp :tangle yes
-  ;; startup and appearance
-  (setq inhibit-startup-message t)
   (setq inhibit-splash-screen t)
-  (tool-bar-mode -1)
-  ;; browsing the menu makes it easy to discover keybindings
-  ;; (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  ;; (blink-cursor-mode -1)
-
+  (setq inhibit-startup-message t)
+  (setq inhibit-startup-echo-area-message t)
+  ;; standard text in scratch buffer makes it easy to recognize when switching perspectives
+  ;; (setq initial-scratch-message nil)
+#+end_src
+** appearance
+*** toolbar, scrollbar and menubar
+#+begin_src emacs-lisp :tangle yes
+  (tool-bar-mode -1) ;; no icons please
+  (scroll-bar-mode -1) ;; who needs this?
+  ;; (menu-bar-mode -1) ;; menu bar is easy for discovering yasnippet shortcuts
+#+end_src
+*** theme
+    Wombat theme comes with Emacs. I also tried solarized but I don't
+    like it in org-mode. I need to find a better theme until then I
+    will use wombat.
+#+begin_src emacs-lisp :tangle yes
   (load-theme 'wombat)
-  ;; (global-hl-line-mode t) ;; easy to find point (point is emacs jargon for cursor)
-  ;; (global-linum-mode t)
-  ;; modeline config
-  ;; clock
-  (setq display-time-24hr-format t)
-  ;; no indicator for Mail
-  (setq display-time-mail-string "")
-  ;; no indicator for load average
-  (setq display-time-default-load-average nil)
-  ;; i3bar displays time
-  ;; (display-time-mode t)
+#+end_src
+
+*** modeline
+    Modeline configuration. I don't need the clock. I use [[https://i3wm.org/][i3wm]] and
+    [[https://i3wm.org/i3status/][i3status]] provides a clock. I rarely use an application in
+    fullscreen so the i3status clock is almost always available.
+
+    I will leave my clock configuration in this file.
+#+begin_src emacs-lisp :tangle yes
   (line-number-mode t)
   (column-number-mode t)
+  ;; clock
+  ;; (setq display-time-24hr-format t)
+  ;; no indicator for Mail
+  ;; (setq display-time-mail-string "")
+  ;; no indicator for load average
+  ;; (setq display-time-default-load-average nil)
+  ;; (display-time-mode t)
 #+end_src  
 ** calendar
 #+begin_src emacs-lisp :tangle yes
@@ -90,6 +104,23 @@
   (setq calendar-date-style 'iso)
 #+end_src
 ** minor settings
+*** blinking point
+    Incosistent naming... cursor is called point in Emacs however you
+    turn it off with (blinking-cursor-mode -1). I just noticed that
+    the cursor stops blinking after a while. It starts blinking again
+    when you move the cursor. I guess this is also configurable in
+    Emacs. It is. Set blink-cursor-blinks to 0 or a negative value to
+    stay blinking.
+#+begin_src emacs-lisp :tangle yes
+  ;; (blink-cursor-mode -1)
+  (setq blink-cursor-blinks -1)
+#+end_src
+*** highlight line and display line numbers
+    After using it for a while I turned it off.
+#+begin_src emacs-lisp :tangle yes
+  ;; (global-hl-line-mode t) ;; easy to find point (point is emacs jargon for cursor)
+  ;; (global-linum-mode t) ;; display line numbers
+#+end_src
 *** auto fill mode
     Use auto-fill-mode when editing .txt files
 #+begin_src emacs-lisp :tangle yes
