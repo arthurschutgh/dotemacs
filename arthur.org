@@ -1,4 +1,4 @@
-* emacs config
+* emacs config setup
   This is my emacs configuration. Put the following code in init.el:
   #+begin_src emacs-lisp :tangle no
     (require 'org)
@@ -6,6 +6,11 @@
   #+end_src
 
   Above code extracts all code blocks from this file and executes it.
+
+  =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have two
+  hardlinks in =~/.emacs.d/=. =~/.emacs.d/init.el= has target
+  =~/projects/emacs.d/init.el= and =~/.emacs.d/arthur.org= has target
+  =~/projects/emacs.d/arthur.org=.
 ** emacs and opening symlinks that point to files under version control
   This file lives in ~/projects/emacs.d/. Initially I symlinked
   ~/.emacs.d/init.el and ~/.emacs.d/arthur.org/ to
@@ -14,20 +19,23 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
+*** TODO choose directory to put backup files
 *** TODO let company refrain from completion in comment blocks
+*** TODO configure var use-package-hook-name-suffix
+    By default -hook is silently added in :hook declarations. I like
+    to be as explicit as possible.
 *** TODO read use-package documentation about deferred loading of packages
 *** TODO find out how to kill an ansi-term buffer after exiting the shell
 *** TODO tab-bar-mode?
     Using it with perspective is not recommended...
 *** TODO google-translate?
     https://github.com/atykhonov/google-translate
-*** TODO choose directory to put backup files
 *** TODO polish this configuration
 *** TODO UTF-8 encoding
 *** TODO look into opening symbolic links to files under version control
 *** TODO install magit
 *** TODO configure python environment
-*** TODO restructure .gitignore to ignore everything except for the files in this repository
+*** DONE restructure .gitignore to ignore everything except for the files in this repository
 *** TODO configure org archiving
 *** TODO configure org refiling
 *** TODO look up my old emacs config for interesting code snippets
