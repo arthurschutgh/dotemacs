@@ -23,7 +23,6 @@
 *** TODO look into opening symbolic links to files under version control
 *** TODO install magit
 *** TODO configure python environment
-*** TODO make :ensure the default for use-package
 *** TODO add capture template for quick notes to refile
 *** TODO restructure .gitignore to ignore everything except for the files in this repository
 *** TODO configure org archiving
@@ -34,6 +33,7 @@
 *** TODO treemacs?
     treemacs-persp, treemacs-projectile
 *** TODO find better theme
+*** DONE make :ensure the default for use-package
 *** DONE put this in version control
 *** DONE write README.org for github
 *** DONE publish to github
@@ -103,6 +103,7 @@
   (setq-default kill-whole-line t)
 #+end_src
 * [[https://melpa.org/#/][melpa]] config
+  Code according to melpa.org
   #+begin_src emacs-lisp :tangle yes
     (require 'package)
     (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -111,14 +112,15 @@
     ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
     (package-initialize)
   #+end_src
-* use-package installation
+* [[https://github.com/jwiegley/use-package#installing-use-package][use-package installation]]
+  With this construct I only need to pull in my config files from
+  github and Emacs behaves the way I want... :-)
   #+begin_src emacs-lisp :tangle yes
     ;; use-package
     ;; https://github.com/jwiegley/use-package#installing-use-package
 
     ;; this automatically installs use-package
-    ;; with this construct I only need to pull in my config files
-    ;; from github and Emacs behaves the way I want... :-)
+    ;; 
     (unless (package-installed-p 'use-package)
       (package-refresh-contents)
       (package-install 'use-package)
@@ -128,6 +130,9 @@
       ;; Following line is not needed if use-package.el is in ~/.emacs.d
       ;; (add-to-list 'load-path "<path where use-package is installed>")
       (require 'use-package))
+
+    (require 'use-package-ensure)
+    (setq use-package-always-ensure t)
   #+end_src
 * packages
 ** org-mode
@@ -136,7 +141,6 @@
      ;; https://orgmode.org/
      (use-package org
        :init (setq org-export-backends '(ascii html icalendar latex md odt))
-       :ensure t
        :demand t
        :mode (("\\.org$" . org-mode))
        :bind (("C-c l" . org-store-link)
@@ -171,15 +175,13 @@
 #+begin_src emacs-lisp :tangle yes
   ;; diminish
   ;; https://github.com/myrjola/diminish.el
-  (use-package diminish
-    :ensure t)
+  (use-package diminish)
 #+end_src
 ** which-key
    #+begin_src emacs-lisp :tangle yes
 ;; which-key
 ;; https://github.com/justbur/emacs-which-key
 (use-package which-key
-  :ensure t
   :diminish which-key-mode
   :config (which-key-mode 1))
    #+end_src
@@ -190,7 +192,6 @@
 ;; https://github.com/abo-abo/avy
 
 (use-package avy
-  :ensure t
   :bind (("C-:" . avy-goto-char))
   )
    #+end_src
@@ -201,7 +202,6 @@
 ;; This seems to work very well :-)
 ;; TAB is bound to yas-maybe-expand
 (use-package yasnippet
-  :ensure t
   :diminish (yas-minor-mode)
   :config (yas-global-mode 1)
   )
@@ -211,9 +211,7 @@
    #+begin_src emacs-lisp :tangle yes
 ;;yasnippet-snippets
 ;;https://github.com/AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets
-  :ensure t
-  )
+(use-package yasnippet-snippets)
    #+end_src
 ** company
    #+begin_src emacs-lisp :tangle yes
@@ -224,7 +222,6 @@
 ;; FIXME configure company to refrain from completion in comment blocks
 (use-package company
   ;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
-  :ensure t
   :diminish company-mode
   :demand t
   :config
@@ -239,7 +236,6 @@
 ;; https://github.com/flycheck/flycheck
 ;; FIXME use :hook
 (use-package flycheck
-  :ensure t
   :diminish flycheck-mode
   :config
   (add-hook 'prog-mode-hook 'flycheck-mode)
@@ -251,7 +247,6 @@
 ;; https://github.com/lewang/flx
 ;; flx-ido is recommended by projectile documentation
 (use-package flx-ido
-  :ensure t
   :config
   (require 'flx-ido)
   (ido-mode 1)
@@ -299,7 +294,6 @@
       ;; Put .projectile in a project directory
       ;; Run projectile-discover-projects-in-directory in the parent directory
       (use-package projectile
-	:ensure t
 	:config
 	;; My keyboard has no super key
 	;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
@@ -315,7 +309,6 @@
       ;; https://github.com/nex3/perspective-el
       ;; https://github.com/nex3/perspective-el#some-musings-on-emacs-window-layouts
       (use-package perspective
-	:ensure t
 	:after projectile
 	:config
 	(persp-mode) ;; create main perspective
@@ -327,7 +320,6 @@
       ;; persp-projectile
       ;; https://github.com/bbatsov/persp-projectile
       (use-package persp-projectile
-	:ensure t
 	:after perspective
 	:config
 	  ;; is it necessary to load it here?
@@ -338,53 +330,55 @@
     #+end_src
 ** language specific packages
 *** old setup
-    #+begin_src emacs-lisp :tangle yes
-;; ================================================================================
-;; old setup
-;; ;; C#
-;; ;; csharp-mode
-;; (use-package csharp-mode
-;;   :ensure t
-;;   :mode "\\.cs\\'"
-;;   )
+    Use :tangle no to prevent extraction of this code block. I can
+    leave the code uncommented. Better display on github. :-)
+    #+begin_src emacs-lisp :tangle no
+      ;; ================================================================================
+      ;; old setup
+      ;; C#
+      ;; csharp-mode
+      (use-package csharp-mode
+	:ensure t
+	:mode "\\.cs\\'"
+	)
 
-;; ;; omnisharp
-;; ;; https://github.com/OmniSharp/omnisharp-emacs
-;; ;; on first start: M-x omnisharp-install-server
-;; ;; FIXME auto start omnisharp server?
-;; (use-package omnisharp
-;;   :ensure t
-;;   :after company
-;;   :hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
-;;   :config (add-to-list 'company-backends 'company-omnisharp))
+      ;; omnisharp
+      ;; https://github.com/OmniSharp/omnisharp-emacs
+      ;; on first start: M-x omnisharp-install-server
+      ;; FIXME auto start omnisharp server?
+      (use-package omnisharp
+	:ensure t
+	:after company
+	:hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
+	:config (add-to-list 'company-backends 'company-omnisharp))
 
 
-;; ;; python
-;; ;; anaconda needs setuptools
-;; ;; setuptools for python3 has already been installed on my system (Debian 10)
-;; ;; to use python3 set this variable
-;; (setq python-shell-interpreter "python3")
-;; ;; anaconda
-;; ;; https://github.com/pythonic-emacs/anaconda-mode
-;; (use-package anaconda-mode
-;;   :ensure t
-;;   :hook ((python-mode . anaconda-mode) ;; -hook is added by use-package.el
-;; 	 (python-mode . anaconda-eldoc-mode))
-;;   )
+      ;; python
+      ;; anaconda needs setuptools
+      ;; setuptools for python3 has already been installed on my system (Debian 10)
+      ;; to use python3 set this variable
+      (setq python-shell-interpreter "python3")
+      ;; anaconda
+      ;; https://github.com/pythonic-emacs/anaconda-mode
+      (use-package anaconda-mode
+	:ensure t
+	:hook ((python-mode . anaconda-mode) ;; -hook is added by use-package.el
+	       (python-mode . anaconda-eldoc-mode))
+	)
 
-;; (use-package company-anaconda
-;;   :ensure t
-;;   :after company
-;;   :config (add-to-list 'company-backends 'company-anaconda)
-;;   )
+      (use-package company-anaconda
+	:ensure t
+	:after company
+	:config (add-to-list 'company-backends 'company-anaconda)
+	)
 
-;; ;; fsharp-mode
-;; ;; https://github.com/fsharp/emacs-fsharp-mode
-;; (use-package fsharp-mode
-;;   :defer t
-;;   :ensure t
-;;   :config (require 'eglot-fsharp)
-;;   )
+      ;; fsharp-mode
+      ;; https://github.com/fsharp/emacs-fsharp-mode
+      (use-package fsharp-mode
+	:defer t
+	:ensure t
+	:config (require 'eglot-fsharp)
+	)
     #+end_src
 * when emacs closes
   Apparently I need to delete arthur.el file otherwise emacs won't see
