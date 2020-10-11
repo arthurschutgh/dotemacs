@@ -29,7 +29,7 @@
    - [[https://orgmode.org/#docs][user manual]]
    - [[http://doc.norang.ca/org-mode.html][org-mode setup by norang.ca]]
 ** configurations by Emacs power users
-   These configurations feel intimidating. I find them useful to gain
+   These configurations are intimidating. I find them useful to gain
    new ideas. I didn't know there is even a google-translate package
    for Emacs!
    - [[https://github.com/jwiegley/dot-emacs][Emacs config by John Wiegley]]
