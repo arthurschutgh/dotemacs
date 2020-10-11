@@ -1,3 +1,13 @@
-init.el
-secrets.el
-arthur.el
+# old setup
+#init.el
+#secrets.el
+#arthur.el
+
+# ignore everything
+*
+
+# but not these files
+!README.org
+!README.md
+!arthur.org
+!.gitignore

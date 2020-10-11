@@ -66,6 +66,7 @@
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message t)
   ;; standard text in scratch buffer makes it easy to recognize when switching perspectives
+  ;; I don't mind a few lines of text in the scratch buffer
   ;; (setq initial-scratch-message nil)
 #+end_src
 ** appearance
