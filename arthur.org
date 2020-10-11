@@ -18,7 +18,7 @@
 *** TODO polish this configuration
 *** TODO look into opening symbolic links to files under version control
 *** TODO install magit
-*** TODO clean up startup section
+*** DONE clean up startup section
 *** TODO configure python environment
 *** TODO make :ensure the default for use-package
 *** TODO add capture template for quick notes to refile
@@ -28,20 +28,28 @@
 *** TODO look up my old emacs config for interesting code snippets
 *** TODO org-super-agenda?
 *** TODO move non-related code comments out of code blocks
+*** TODO treemacs?
+*** TODO find better theme
+*** TODO choose directory to put backup files
 * startup
-  
+** garbage collector
 #+begin_src emacs-lisp :tangle yes
   (setq gc-cons-threshold (* 50 1024 1024)
 	gc-cons-percentage 0.6
 	;; read-process-output-max
 	)
 
+#+end_src
+** no backup files (maybe they end up in version control)
+#+begin_src emacs-lisp :tangle yes
   ;; no backups
   (setq auto-save-default nil)
   (setq make-backup-files nil)
   ;; FIXME what does this variable?
   (setq auto-save-list-file-prefix nil)
-
+#+end_src
+** appearance
+#+begin_src emacs-lisp :tangle yes
   ;; startup and appearance
   (setq inhibit-startup-message t)
   (setq inhibit-splash-screen t)
@@ -52,17 +60,8 @@
   ;; (blink-cursor-mode -1)
 
   (load-theme 'wombat)
-
   ;; (global-hl-line-mode t) ;; easy to find point (point is emacs jargon for cursor)
   ;; (global-linum-mode t)
-
-  ;; I don't want to type yes or no
-  (fset 'yes-or-no-p 'y-or-n-p)
-
-  ;; calendar
-  (setq calendar-week-start-day 1)
-  (setq calendar-date-style 'iso)
-
   ;; modeline config
   ;; clock
   (setq display-time-24hr-format t)
@@ -74,15 +73,29 @@
   ;; (display-time-mode t)
   (line-number-mode t)
   (column-number-mode t)
-
+#+end_src  
+** calendar
+#+begin_src emacs-lisp :tangle yes
+  ;; calendar
+  (setq calendar-week-start-day 1)
+  (setq calendar-date-style 'iso)
+#+end_src
+** minor settings
+#+begin_src emacs-lisp :tangle yes
   ;; use auto-fill-mode when editing .txt files
   (add-hook 'text-mode-hook 'auto-fill-mode)
+
+  ;; I don't want to type yes or no
+  (fset 'yes-or-no-p 'y-or-n-p)
 
   ;; (defun arh/ansi-term () (interactive) (ansi-term "bash"))
   ;; (global-set-key (kbd "C-c t") 'arh/ansi-term)
   ;; FIXME make keybinding for eshell
+
+  ;; when killing a line kill the newline also
+  (setq-default kill-whole-line t)
 #+end_src
-* melpa config
+* [[https://melpa.org/#/][melpa]] config
   #+begin_src emacs-lisp :tangle yes
     (require 'package)
     (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -164,10 +177,11 @@
   :config (which-key-mode 1))
    #+end_src
 ** avy
+   Move point to any character on the screen with only C-:
    #+begin_src emacs-lisp :tangle yes
 ;; avy
 ;; https://github.com/abo-abo/avy
-;; move point to any character on the screen with only C-:
+
 (use-package avy
   :ensure t
   :bind (("C-:" . avy-goto-char))
@@ -257,6 +271,7 @@
 ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
 ;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
 ;; smartparens seems to break C-- C-k to kill a line backwards
+;; workaround: C-0 C-k also kills a line backwards!
    #+end_src
 ** magit
    #+begin_src emacs-lisp :tangle yes
