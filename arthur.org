@@ -5,12 +5,15 @@
     (org-babel-load-file "/home/arthur/.emacs.d/arthur.org")
   #+end_src
 
-  Above code extracts all code blocks from this file and executes it.
+  Above code extracts all code blocks with keyword :tangle yes from
+  this file and executes it.
 
   =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have two
   hardlinks in =~/.emacs.d/=. =~/.emacs.d/init.el= has target
   =~/projects/emacs.d/init.el= and =~/.emacs.d/arthur.org= has target
   =~/projects/emacs.d/arthur.org=.
+
+  Make sure =~/.emacs= does not exist.
 ** emacs and opening symlinks that point to files under version control
   This file lives in ~/projects/emacs.d/. Initially I symlinked
   ~/.emacs.d/init.el and ~/.emacs.d/arthur.org/ to

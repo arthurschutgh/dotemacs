@@ -1,26 +1,26 @@
 
 # Table of Contents
 
-1.  [Emacs configuration](#orgd1674fc)
-2.  [Why Emacs?](#org07f16e8)
-3.  [For beginners](#orgff348c1)
-    1.  [basic configurations](#org781f3e4)
-    2.  [Emacs documenation](#org75a212e)
-        1.  [Manual](#org246cf27)
-        2.  [Emacs lisp](#orgc43c687)
-    3.  [org-mode](#org7e81ef6)
-    4.  [configurations by Emacs power users](#org0c12cd1)
-4.  [Compiling Emacs 27.1 on Debian Buster (10)](#orgaefb2ce)
+1.  [Emacs configuration](#org138d3ba)
+2.  [Why Emacs?](#org884cb71)
+3.  [For beginners](#orge1791a2)
+    1.  [basic configurations](#org42ac8da)
+    2.  [Emacs documenation](#org5f38900)
+        1.  [Manual](#org0df8f52)
+        2.  [Emacs lisp](#org98d0b99)
+    3.  [org-mode](#org15071f3)
+    4.  [configurations by Emacs power users](#org444a6df)
+4.  [Compiling Emacs 27.1 on Debian Buster (10)](#orgb43fa29)
 
 
-<a id="orgd1674fc"></a>
+<a id="org138d3ba"></a>
 
 # Emacs configuration
 
-This is my emacs configuration
+This is my emacs configuration. You can read it [here](https://github.com/arthurschutgh/dotemacs/blob/master/arthur.org).
 
 
-<a id="org07f16e8"></a>
+<a id="org884cb71"></a>
 
 # Why Emacs?
 
@@ -30,7 +30,7 @@ This is my emacs configuration
 -   [Multiple cursors and macros](https://www.youtube.com/watch?v=jNa3axo40qM) **impressive!**
 
 
-<a id="orgff348c1"></a>
+<a id="orge1791a2"></a>
 
 # For beginners
 
@@ -39,7 +39,7 @@ tutorial. Press C-h t to start the tutorial. This means: press
 Ctrl-h followed by t.
 
 
-<a id="org781f3e4"></a>
+<a id="org42ac8da"></a>
 
 ## basic configurations
 
@@ -50,19 +50,19 @@ customizations:
 -   [Configuring Emacs from Scratch - Intro](https://medium.com/@suvratapte/configuring-emacs-from-scratch-intro-3157bed9d040)
 
 
-<a id="org75a212e"></a>
+<a id="org5f38900"></a>
 
 ## Emacs documenation
 
 
-<a id="org246cf27"></a>
+<a id="org0df8f52"></a>
 
 ### Manual
 
 -   [GNU Emacs manual](https://www.gnu.org/software/emacs/manual/emacs.html)
 
 
-<a id="orgc43c687"></a>
+<a id="org98d0b99"></a>
 
 ### Emacs lisp
 
@@ -73,7 +73,7 @@ Leveraging the power of Emacs requires learning Emacs lisp.
 -   [GNU Emacs Lisp Reference Manual](https://www.gnu.org/software/emacs/manual/elisp.html) (not really needed by beginners)
 
 
-<a id="org7e81ef6"></a>
+<a id="org15071f3"></a>
 
 ## org-mode
 
@@ -85,11 +85,11 @@ your life in plain text files.
 -   [org-mode setup by norang.ca](http://doc.norang.ca/org-mode.html)
 
 
-<a id="org0c12cd1"></a>
+<a id="org444a6df"></a>
 
 ## configurations by Emacs power users
 
-These configurations feel intimidating. I find them useful to gain
+These configurations are intimidating. I find them useful to gain
 new ideas. I didn't know there is even a google-translate package
 for Emacs!
 
@@ -101,7 +101,7 @@ for Emacs!
 -   [Emacs config by Doug Davis](https://github.com/douglasdavis/dot-emacs)
 
 
-<a id="orgaefb2ce"></a>
+<a id="orgb43fa29"></a>
 
 # Compiling Emacs 27.1 on Debian Buster (10)
 
@@ -116,7 +116,7 @@ for Emacs!
 4.  Change to emacs-27.1 directory
     
         cd emacs-27.1
-5.  Run configure with
+5.  Run configure
     
         ./configure --with-cairo --prefix=/usr/local/
 6.  Run make and drink coffee

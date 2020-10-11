@@ -1,5 +1,5 @@
 * Emacs configuration
-  This is my emacs configuration
+  This is my emacs configuration. You can read it [[https://github.com/arthurschutgh/dotemacs/blob/master/arthur.org][here]].
 * Why Emacs?
   - [[https://batsov.com/articles/2011/11/19/why-emacs/][Why Emacs? by Bozhidar Batsov]]
   - [[https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/][The most successful malleable system in history]]
