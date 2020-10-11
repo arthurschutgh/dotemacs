@@ -135,10 +135,8 @@
     (setq use-package-always-ensure t)
   #+end_src
 * packages
-** org-mode
+** [[https://orgmode.org/][org-mode]]
    #+begin_src emacs-lisp :tangle yes
-     ;; org-mode
-     ;; https://orgmode.org/
      (use-package org
        :init (setq org-export-backends '(ascii html icalendar latex md odt))
        :demand t
@@ -178,47 +176,35 @@
   ;; https://github.com/myrjola/diminish.el
   (use-package diminish)
 #+end_src
-** which-key
+** [[https://github.com/justbur/emacs-which-key][which-key]]
    #+begin_src emacs-lisp :tangle yes
-;; which-key
-;; https://github.com/justbur/emacs-which-key
 (use-package which-key
   :diminish which-key-mode
   :config (which-key-mode 1))
    #+end_src
-** avy
+** [[https://github.com/abo-abo/avy][avy]]
    Move point to any character on the screen with C-:
    #+begin_src emacs-lisp :tangle yes
-;; avy
-;; https://github.com/abo-abo/avy
-
 (use-package avy
   :bind (("C-:" . avy-goto-char))
   )
    #+end_src
-** yasnippet
+** [[https://github.com/joaotavora/yasnippet][yasnippet]]
+   I like yasnippet. TAB is bound to yas-maybe-expand
    #+begin_src emacs-lisp :tangle yes
-;;yasnippet
-;;https://github.com/joaotavora/yasnippet
-;; This seems to work very well :-)
-;; TAB is bound to yas-maybe-expand
 (use-package yasnippet
   :diminish (yas-minor-mode)
   :config (yas-global-mode 1)
   )
    #+end_src
-
-** yasnippet-snippets
+** [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
    #+begin_src emacs-lisp :tangle yes
-;;yasnippet-snippets
-;;https://github.com/AndreaCrotti/yasnippet-snippets
 (use-package yasnippet-snippets)
    #+end_src
-** company
+** [[https://github.com/company-mode/company-mode][company]]
+   Company mode is a completion framework
+   [[http://company-mode.github.io/][website]]
    #+begin_src emacs-lisp :tangle yes
-;; company
-;; https://github.com/company-mode/company-mode
-;; http://company-mode.github.io/
 ;; FIXME use :hook
 ;; FIXME configure company to refrain from completion in comment blocks
 (use-package company
@@ -227,14 +213,12 @@
   :demand t
   :config
   (setq company-idle-delay 0.0)
-  (add-hook 'prog-mode-hook 'company-mode)
+  (add-hook 'prog-mode-hook 'company-mode) ;; only in programming modes
   ;; (global-company-mode t)
   )
    #+end_src
-** flycheck
+** [[https://github.com/flycheck/flycheck][flycheck]]
    #+begin_src emacs-lisp :tangle yes
-;; flycheck
-;; https://github.com/flycheck/flycheck
 ;; FIXME use :hook
 (use-package flycheck
   :diminish flycheck-mode
@@ -242,58 +226,45 @@
   (add-hook 'prog-mode-hook 'flycheck-mode)
   )
    #+end_src
-** flx-ido
+** [[https://github.com/lewang/flx][flx-ido]]
+   flx-ido is recommended by projectile documentation
    #+begin_src emacs-lisp :tangle yes
-;; flx-ido
-;; https://github.com/lewang/flx
-;; flx-ido is recommended by projectile documentation
-(use-package flx-ido
-  :config
-  (require 'flx-ido)
-  (ido-mode 1)
-  (ido-everywhere 1)
-  (flx-ido-mode 1)
-  (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil)
-  )
+     (use-package flx-ido
+       :config
+       (require 'flx-ido)
+       (ido-mode 1)
+       (ido-everywhere 1)
+       (flx-ido-mode 1)
+       (setq ido-enable-flex-matching t)
+       (setq ido-use-faces nil)
+       )
    #+end_src
-** smartparens
+** [[https://github.com/Fuco1/smartparens][smartparens]]
+   Install according to these instructions: [[https://ebzzry.io/en/emacs-pairs/][Emacs and Pairs]]
    #+begin_src emacs-lisp :tangle yes
-;; smartparens
-;; https://github.com/Fuco1/smartparens
-;; install according to these instructions:
-;; https://ebzzry.io/en/emacs-pairs/
-;; First: M-x package-install RET smartparens RET
-;; above command is not necessary
-(use-package smartparens-config
-  :ensure smartparens
-  :diminish smartparens-mode
-  :config (progn (show-smartparens-global-mode t)))
+     ;; First: M-x package-install RET smartparens RET
+     ;; above command is not necessary
+     (use-package smartparens-config
+       :ensure smartparens
+       :diminish smartparens-mode
+       :config (progn (show-smartparens-global-mode t)))
 
-(add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
-;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-;; smartparens seems to break C-- C-k to kill a line backwards
-;; workaround: C-0 C-k also kills a line backwards!
+     (add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
+     ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+     ;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+     ;; smartparens seems to break C-- C-k to kill a line backwards
+     ;; workaround: C-0 C-k also kills a line backwards!
    #+end_src
-** magit
+** [[https://github.com/magit/magit][magit]]
    #+begin_src emacs-lisp :tangle yes
-;; magit
-;; https://github.com/magit/magit
-;; TODO install magit
+     ;; TODO install magit
    #+end_src
 ** project management
-*** projectile
+*** [[https://github.com/bbatsov/projectile][projectile]]
+    This seems to work: Put .projectile in a project directory. Run
+    projectile-discover-projects-in-directory in the parent directory
+    [[https://docs.projectile.mx/projectile/index.html][Documentation]]
     #+begin_src emacs-lisp :tangle yes
-      ;; projectile
-      ;; https://github.com/bbatsov/projectile
-      ;; https://docs.projectile.mx/projectile/index.html
-      ;; I am not sure about this:
-      ;; .projectile should live in the parent directory of directories which should be considered projects
-      ;; do not put .projectile in the directory which you consider a project
-      ;; This seems to work:
-      ;; Put .projectile in a project directory
-      ;; Run projectile-discover-projects-in-directory in the parent directory
       (use-package projectile
 	:config
 	;; My keyboard has no super key
@@ -304,11 +275,9 @@
 	(projectile-mode +1)
 	)
     #+end_src
-*** perspective
+*** [[https://github.com/nex3/perspective-el][perspective]]
+    [[https://github.com/nex3/perspective-el#some-musings-on-emacs-window-layouts][Some musings on emacs window layouts]]
     #+begin_src emacs-lisp :tangle yes
-      ;; perspective
-      ;; https://github.com/nex3/perspective-el
-      ;; https://github.com/nex3/perspective-el#some-musings-on-emacs-window-layouts
       (use-package perspective
 	:after projectile
 	:config
@@ -316,17 +285,15 @@
 	(setq persp-state-default-file "/home/arthur/.emacs.d/perspective-state")
 	)
     #+end_src
-*** persp-projectile
+*** [[https://github.com/bbatsov/persp-projectile][persp-projectile]]
     #+begin_src emacs-lisp :tangle yes
-      ;; persp-projectile
-      ;; https://github.com/bbatsov/persp-projectile
       (use-package persp-projectile
 	:after perspective
 	:config
 	  ;; is it necessary to load it here?
 	(if (file-exists-p persp-state-default-file) (persp-state-load persp-state-default-file))
 	;; the if construct prevents an error message when starting emacs
-	;; with a clean ~/.emacs.d/elpa/ directory
+	;; without persp-state-default-file
 	)
     #+end_src
 ** language specific packages
