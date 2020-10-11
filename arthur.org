@@ -23,7 +23,6 @@
 *** TODO look into opening symbolic links to files under version control
 *** TODO install magit
 *** TODO configure python environment
-*** TODO add capture template for quick notes to refile
 *** TODO restructure .gitignore to ignore everything except for the files in this repository
 *** TODO configure org archiving
 *** TODO configure org refiling
@@ -33,6 +32,7 @@
 *** TODO treemacs?
     treemacs-persp, treemacs-projectile
 *** TODO find better theme
+*** DONE add capture template for quick notes to refile
 *** DONE make :ensure the default for use-package
 *** DONE put this in version control
 *** DONE write README.org for github
@@ -166,6 +166,7 @@
 	     ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
 	     ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
 	     ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
+	     ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
 	     )
 	   )
    #+end_src
