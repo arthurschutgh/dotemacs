@@ -20,6 +20,7 @@
     https://github.com/atykhonov/google-translate
 *** TODO choose directory to put backup files
 *** TODO polish this configuration
+*** TODO UTF-8 encoding
 *** TODO look into opening symbolic links to files under version control
 *** TODO install magit
 *** TODO configure python environment
@@ -32,6 +33,7 @@
 *** TODO treemacs?
     treemacs-persp, treemacs-projectile
 *** TODO find better theme
+*** DONE move links from comments to headlines
 *** DONE add capture template for quick notes to refile
 *** DONE make :ensure the default for use-package
 *** DONE put this in version control
@@ -88,18 +90,25 @@
   (setq calendar-date-style 'iso)
 #+end_src
 ** minor settings
+*** auto fill mode
+    Use auto-fill-mode when editing .txt files
 #+begin_src emacs-lisp :tangle yes
-  ;; use auto-fill-mode when editing .txt files
   (add-hook 'text-mode-hook 'auto-fill-mode)
-
-  ;; I don't want to type yes or no
+#+end_src
+*** y-or-n
+    I don't want to type yes or no
+#+begin_src emacs-lisp :tangle yes
   (fset 'yes-or-no-p 'y-or-n-p)
-
-  ;; (defun arh/ansi-term () (interactive) (ansi-term "bash"))
-  ;; (global-set-key (kbd "C-c t") 'arh/ansi-term)
-  ;; FIXME make keybinding for eshell
-
-  ;; when killing a line also kill the newline character
+#+end_src
+*** ansi-term
+    This is a decent terminal emulator.
+#+begin_src emacs-lisp :tangle yes
+  (defun arh/ansi-term () (interactive) (ansi-term "bash"))
+  (global-set-key (kbd "C-c t") 'arh/ansi-term)
+#+end_src
+*** kill whole line
+    When killing a line also kill the newline character
+#+begin_src emacs-lisp :tangle yes
   (setq-default kill-whole-line t)
 #+end_src
 * [[https://melpa.org/#/][melpa]] config
