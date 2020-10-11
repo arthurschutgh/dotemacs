@@ -97,20 +97,14 @@
   ;; (setq display-time-default-load-average nil)
   ;; (display-time-mode t)
 #+end_src  
-** calendar
-#+begin_src emacs-lisp :tangle yes
-  ;; calendar
-  (setq calendar-week-start-day 1)
-  (setq calendar-date-style 'iso)
-#+end_src
 ** minor settings
 *** blinking point
-    Incosistent naming... cursor is called point in Emacs however you
-    turn it off with (blinking-cursor-mode -1). I just noticed that
-    the cursor stops blinking after a while. It starts blinking again
-    when you move the cursor. I guess this is also configurable in
-    Emacs. It is. Set blink-cursor-blinks to 0 or a negative value to
-    stay blinking.
+    Inconsistent naming... cursor is called point in Emacs however you
+    turn blinking off with (blinking-cursor-mode -1). I just noticed
+    that the cursor stops blinking after a while. It starts blinking
+    again when you move the cursor. I guess this is also configurable
+    in Emacs. It is. Set blink-cursor-blinks to 0 or a negative value
+    to blink forever.
 #+begin_src emacs-lisp :tangle yes
   ;; (blink-cursor-mode -1)
   (setq blink-cursor-blinks -1)
@@ -142,6 +136,12 @@
 #+begin_src emacs-lisp :tangle yes
   (setq-default kill-whole-line t)
 #+end_src
+*** calendar
+ #+begin_src emacs-lisp :tangle yes
+   ;; calendar
+   (setq calendar-week-start-day 1)
+   (setq calendar-date-style 'iso)
+ #+end_src
 * [[https://melpa.org/#/][melpa]] config
   Code according to melpa.org
   #+begin_src emacs-lisp :tangle yes
@@ -389,7 +389,7 @@
 	)
     #+end_src
 * when emacs closes
-  Apparently I need to delete arthur.el file otherwise emacs won't see
+  Apparently I need to delete arthur.el file otherwise Emacs won't see
   changes to arthur.org.
 
   #+begin_src emacs-lisp :tangle yes
