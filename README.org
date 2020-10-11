@@ -53,7 +53,7 @@
      #+BEGIN_SRC sh
      cd emacs-27.1
      #+END_SRC
-  5. Run configure with
+  5. Run configure
      #+BEGIN_SRC sh
      ./configure --with-cairo --prefix=/usr/local/
      #+END_SRC
