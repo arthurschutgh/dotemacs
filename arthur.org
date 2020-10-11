@@ -394,7 +394,11 @@
 * when emacs closes
   Apparently I need to delete arthur.el file otherwise Emacs won't see
   changes to arthur.org.
+
+  With hardlinking I don't need to delete arthur.el in ~/.emacs.d/. If
+  arthur.org is updated in ~/projects/emacs.d org-babel-load-file sees
+  arthur.org has changed.
   #+begin_src emacs-lisp :tangle yes
     (add-hook 'kill-emacs-hook #'persp-state-save) ;; what does # do?
-    (add-hook 'kill-emacs-hook (lambda () (delete-file "/home/arthur/.emacs.d/arthur.el")))
+    ;; (add-hook 'kill-emacs-hook (lambda () (delete-file "/home/arthur/.emacs.d/arthur.el")))
   #+end_src
