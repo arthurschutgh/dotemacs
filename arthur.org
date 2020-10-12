@@ -407,7 +407,7 @@
   Apparently I need to delete arthur.el file otherwise Emacs won't see
   changes to arthur.org.
 
-  With hardlinking I don't need to delete arthur.el in ~/.emacs.d/. If
+  Update: with hardlinking I don't need to delete arthur.el in ~/.emacs.d/. If
   arthur.org is updated in ~/projects/emacs.d org-babel-load-file sees
   arthur.org in ~/.emacs.d/ has changed. (If I understand correctly)
   #+begin_src emacs-lisp :tangle yes
