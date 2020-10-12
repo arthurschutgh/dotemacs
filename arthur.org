@@ -23,30 +23,30 @@
   the problem by hardlinking.
 ** todo
 *** TODO choose directory to put backup files
-*** TODO let company refrain from completion in comment blocks
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
     to be as explicit as possible.
+*** TODO let company refrain from completion in comment blocks
 *** TODO read use-package documentation about deferred loading of packages
 *** TODO find out how to kill an ansi-term buffer after exiting the shell
+*** TODO UTF-8 encoding
+*** TODO configure org archiving
+*** TODO configure org refiling
 *** TODO tab-bar-mode?
     Using it with perspective is not recommended...
 *** TODO google-translate?
     https://github.com/atykhonov/google-translate
-*** TODO polish this configuration
-*** TODO UTF-8 encoding
 *** TODO look into opening symbolic links to files under version control
 *** TODO install magit
 *** TODO configure python environment
-*** DONE restructure .gitignore to ignore everything except for the files in this repository
-*** TODO configure org archiving
-*** TODO configure org refiling
 *** TODO look up my old emacs config for interesting code snippets
 *** TODO org-super-agenda?
 *** TODO move non-related code comments out of code blocks
 *** TODO treemacs?
     treemacs-persp, treemacs-projectile
 *** TODO find better theme
+*** DONE polish this configuration
+*** DONE restructure .gitignore to ignore everything except for the files in this repository
 *** DONE move links from comments to headlines
 *** DONE add capture template for quick notes to refile
 *** DONE make :ensure the default for use-package
