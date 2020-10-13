@@ -24,9 +24,6 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO choose directory to put backup files
-    I plan to use unison to synchronize with my vps. I also want to
-    use borgbackup to backup my files to my storagebox at hetzner.
 *** TODO setup dired-hide-dotfiles
 *** TODO have a look at dired integration with projectile
     Maybe there is no need for treemacs.
@@ -50,6 +47,9 @@
 *** TODO move non-related code comments out of code blocks
 *** TODO treemacs?
     treemacs-persp, treemacs-projectile
+*** POSTPONE choose directory to put backup files
+    I plan to use unison to synchronize with my vps. I also want to
+    use borgbackup to backup my files to my storagebox at hetzner.
 *** CANCELED find out how to kill an ansi-term buffer after exiting the shell
 *** DONE find better theme
 *** DONE switch back to :ensure keyword in use-package declarations
@@ -255,6 +255,15 @@
 	     )
 	   )
    #+end_src
+** [[https://github.com/mattiasb/dired-hide-dotfiles][dired-hide-dotfiles]]
+#+begin_src emacs-lisp :tangle yes
+  (use-package dired-hide-dotfiles
+    :ensure t
+    :config
+    (define-key dired-mode-map "." 'dired-hide-dotfiles-mode)
+    (add-hook 'dired-mode-hook 'dired-hide-dotfiles-mode)
+    )
+#+end_src
 ** [[https://github.com/myrjola/diminish.el][diminish]]
    With the amount of packages I use the modeline becomes cluttered
    quickly. Diminish mode deletes indicators from the modeline.
