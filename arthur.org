@@ -9,9 +9,8 @@
    Above code extracts all code blocks with keyword =:tangle yes= from
    this file and executes it.
 
-   =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have two
-   hardlinks in =~/.emacs.d/=. =~/.emacs.d/init.el= has target
-   =~/projects/emacs.d/init.el= and =~/.emacs.d/arthur.org= has target
+   =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have one
+   hardlink in =~/.emacs.d/=. =~/.emacs.d/arthur.org= has target
    =~/projects/emacs.d/arthur.org=.
 
    Make sure =~/.emacs= does not exist.
@@ -68,6 +67,8 @@
 *** DONE write README.org for github
 *** DONE publish to github
 *** DONE clean up startup section
+* utilities
+  Define some nice utility functions.
 * startup
 ** garbage collector
 #+begin_src emacs-lisp :tangle yes
@@ -76,6 +77,31 @@
 	;; read-process-output-max
 	)
 #+end_src
+** [[https://melpa.org/#/][melpa]] config
+   Code according to melpa.org
+   #+begin_src emacs-lisp :tangle yes
+     (require 'package)
+     (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+     ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+     ;; and `package-pinned-packages`. Most users will not need or want to do this.
+     ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+     (package-initialize)
+   #+end_src
+** [[https://github.com/jwiegley/use-package#installing-use-package][use-package]] installation
+   With this construct I only need to pull my config files from github
+   and Emacs behaves the way I want... :-)
+   #+begin_src emacs-lisp :tangle yes
+     ;; this automatically installs use-package
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package)
+       )
+
+     (eval-when-compile
+       ;; Following line is not needed if use-package.el is in ~/.emacs.d
+       ;; (add-to-list 'load-path "<path where use-package is installed>")
+       (require 'use-package))
+   #+end_src
 ** no backup files (maybe they end up in version control)
 #+begin_src emacs-lisp :tangle yes
   (setq auto-save-default nil)
@@ -94,8 +120,24 @@
 #+begin_src emacs-lisp :tangle yes
   (tool-bar-mode -1) ;; no icons please
   (scroll-bar-mode -1) ;; who needs this?
-  ;; (menu-bar-mode -1) ;; menu bar is useful for discovering yasnippet shortcuts
+  ;; (menu-bar-mode -1) ;; menu bar is useful for discovering yasnippet abbreviations
 #+end_src
+*** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
+    For the time being I stick with modus-vivendi
+ #+begin_src emacs-lisp :tangle no
+   (use-package modus-operandi-theme
+     :ensure t
+     :config
+     (load-theme 'modus-operandi t)
+     )
+ #+end_src
+ #+begin_src emacs-lisp :tangle yes
+   (use-package modus-vivendi-theme
+     :ensure t
+     :config
+     (load-theme 'modus-vivendi t)
+     )
+ #+end_src
 *** theme
     Wombat theme comes with Emacs. I also tried solarized but I don't
     like it in org-mode. I need to find a better theme until then I
@@ -103,7 +145,6 @@
 #+begin_src emacs-lisp :tangle no
   (load-theme 'wombat)
 #+end_src
-
 *** modeline
     Modeline configuration. I don't need the clock. I use [[https://i3wm.org/][i3wm]] and
     [[https://i3wm.org/i3status/][i3status]] provides a clock. I rarely use an application in
@@ -170,31 +211,6 @@
 #+begin_src emacs-lisp :tangle yes
   (save-place-mode t)
 #+end_src
-* [[https://melpa.org/#/][melpa]] config
-  Code according to melpa.org
-  #+begin_src emacs-lisp :tangle yes
-    (require 'package)
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-    ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-    ;; and `package-pinned-packages`. Most users will not need or want to do this.
-    ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-    (package-initialize)
-  #+end_src
-* [[https://github.com/jwiegley/use-package#installing-use-package][use-package]] installation
-  With this construct I only need to pull my config files from github
-  and Emacs behaves the way I want... :-)
-  #+begin_src emacs-lisp :tangle yes
-    ;; this automatically installs use-package
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package)
-      )
-
-    (eval-when-compile
-      ;; Following line is not needed if use-package.el is in ~/.emacs.d
-      ;; (add-to-list 'load-path "<path where use-package is installed>")
-      (require 'use-package))
-  #+end_src
 * packages
 ** general
 *** [[https://github.com/joaotavora/yasnippet][yasnippet]]
@@ -253,22 +269,6 @@
 	(setq ido-use-faces nil)
 	)
     #+end_src
-*** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
-    For the time being I stick with modus-vivendi
- #+begin_src emacs-lisp :tangle no
-   (use-package modus-operandi-theme
-     :ensure t
-     :config
-     (load-theme 'modus-operandi t)
-     )
- #+end_src
- #+begin_src emacs-lisp :tangle yes
-   (use-package modus-vivendi-theme
-     :ensure t
-     :config
-     (load-theme 'modus-vivendi t)
-     )
- #+end_src
 *** [[https://github.com/manateelazycat/multi-term][multi-term]]
     After ^D the shell closes and the associated buffer.
  #+begin_src emacs-lisp :tangle yes
@@ -304,16 +304,16 @@
 	      ("C-c c" . org-capture)
 	      ("C-c b" . org-switchb))
        :config
+       (setq org-directory "~/projects/old-org/")
        (setq org-agenda-files '("~/projects/old-org/index.org"))
        (setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
-       (setq org-directory "~/projects/old-org/")
        (setq org-startup-folded t)
        (setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
        (setq org-blank-before-new-entry (quote ((heading . nil)
 						(plain-list-item . nil))))
        (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
        ;; the lambda in the line above is needed because of the -1 argument
-       (add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want in org-capture :-)
+       (add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want it in org-capture :-)
        (setq org-todo-keywords
 	     '((sequence "TODO(t)" "POSTPONE(p)" "|" "DONE(d)" "CANCELED(c)"))
 	     )
@@ -321,6 +321,7 @@
 
      (setq org-capture-templates
 	   '(("a" "Maak afspraak")
+	     ;; FIXME: is the following item necessary?
 	     ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
 	     ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
 	     ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
