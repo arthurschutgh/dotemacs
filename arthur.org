@@ -1,4 +1,4 @@
-#+TODO: TODO | DONE CANCELED
+#+TODO: TODO POSTPONE | DONE CANCELED
 * emacs config
 ** introduction
    This is my emacs configuration. Put the following code in init.el:
@@ -25,6 +25,9 @@
   the problem by hardlinking.
 ** todo
 *** TODO choose directory to put backup files
+    I plan to use unison to synchronize with my vps. I also want to
+    use borgbackup to backup my files to my storagebox at hetzner.
+*** TODO setup dired-hide-dotfiles
 *** TODO have a look at dired integration with projectile
     Maybe there is no need for treemacs.
 *** TODO configure var use-package-hook-name-suffix
