@@ -23,25 +23,26 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
+*** TODO move non-related code comments out of code blocks
+*** TODO setup UTF-8 encoding
+*** TODO configure org archiving
+*** TODO configure org refiling
 *** TODO setup org-contacts
+*** TODO setup elpher mode (gopher and gemini client)
+*** TODO configure python environment
+*** TODO install magit
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
     to be as explicit as possible.
 *** TODO let company refrain from completion in comment blocks
 *** TODO read use-package documentation about deferred loading of packages
-*** TODO UTF-8 encoding
-*** TODO configure org archiving
-*** TODO configure org refiling
-*** TODO tab-bar-mode?
+*** CANCELED tab-bar-mode?
     Using it with perspective is not recommended...
-*** TODO google-translate?
+*** POSTPONE google-translate?
     https://github.com/atykhonov/google-translate
 *** TODO look into opening symbolic links to files under version control
-*** TODO install magit
-*** TODO configure python environment
 *** TODO look up my old emacs config for interesting code snippets
-*** TODO org-super-agenda?
-*** TODO move non-related code comments out of code blocks
+*** POSTPONE org-super-agenda?
 *** POSTPONE choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
@@ -77,10 +78,8 @@
 #+end_src
 ** no backup files (maybe they end up in version control)
 #+begin_src emacs-lisp :tangle yes
-  ;; no backups
   (setq auto-save-default nil)
   (setq make-backup-files nil)
-  ;; FIXME what does this variable?
   (setq auto-save-list-file-prefix nil)
 #+end_src
 ** quiet startup
@@ -88,8 +87,6 @@
   (setq inhibit-splash-screen t)
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message t)
-  ;; standard text in scratch buffer makes it easy to recognize when switching perspectives
-  ;; I don't mind a few lines of text in the scratch buffer
   ;; (setq initial-scratch-message nil)
 #+end_src
 ** appearance
@@ -127,7 +124,6 @@
 ** minor settings
 *** calendar
  #+begin_src emacs-lisp :tangle yes
-   ;; calendar
    (setq calendar-week-start-day 1)
    (setq calendar-date-style 'iso)
  #+end_src
@@ -141,8 +137,8 @@
     turn blinking off with (blinking-cursor-mode -1). I just noticed
     that the cursor stops blinking after a while. It starts blinking
     again when you move the cursor. I guess this is also configurable
-    in Emacs. It is. Set blink-cursor-blinks to 0 or a negative value
-    to blink forever.
+    in Emacs. Update: it is. Set blink-cursor-blinks to 0 or a
+    negative value to blink forever.
 #+begin_src emacs-lisp :tangle yes
   ;; (blink-cursor-mode -1)
   (setq blink-cursor-blinks -1)
@@ -185,26 +181,19 @@
     (package-initialize)
   #+end_src
 * [[https://github.com/jwiegley/use-package#installing-use-package][use-package]] installation
-  With this construct I only need to pull in my config files from
-  github and Emacs behaves the way I want... :-)
+  With this construct I only need to pull my config files from github
+  and Emacs behaves the way I want... :-)
   #+begin_src emacs-lisp :tangle yes
-    ;; use-package
-    ;; https://github.com/jwiegley/use-package#installing-use-package
-
     ;; this automatically installs use-package
-    ;; 
     (unless (package-installed-p 'use-package)
       (package-refresh-contents)
       (package-install 'use-package)
       )
-    ;; read use-package documentation
+
     (eval-when-compile
       ;; Following line is not needed if use-package.el is in ~/.emacs.d
       ;; (add-to-list 'load-path "<path where use-package is installed>")
       (require 'use-package))
-
-    (require 'use-package-ensure)
-    ;; (setq use-package-always-ensure t)
   #+end_src
 * packages
 ** general
@@ -218,6 +207,8 @@
 	)
     #+end_src
 *** [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
+    This is a library of predefined snippets. Use the menu to discover
+    snippet abbreviations.
     #+begin_src emacs-lisp :tangle yes
       (use-package yasnippet-snippets
       :ensure t
@@ -279,7 +270,7 @@
      )
  #+end_src
 *** [[https://github.com/manateelazycat/multi-term][multi-term]]
-    Also have a look at aweshell.
+    After ^D the shell closes and the associated buffer.
  #+begin_src emacs-lisp :tangle yes
    (use-package multi-term
      :ensure t
@@ -289,6 +280,9 @@
    )
  #+end_src
 *** [[https://github.com/justbur/emacs-which-key][which-key]]
+    Which-key is a minor mode for Emacs that displays the key bindings
+    following your currently entered incomplete command (a prefix) in
+    a popup.
     #+begin_src emacs-lisp :tangle yes
       (use-package which-key
 	:ensure t
@@ -296,6 +290,9 @@
 	:config (which-key-mode 1))
     #+end_src
 ** [[https://orgmode.org/][org-mode]]
+   Org mode is for keeping notes, maintaining TODO lists, planning
+   projects, and authoring documents with a fast and effective
+   plain-text system.
    #+begin_src emacs-lisp :tangle yes
      (use-package org
        :ensure t
@@ -322,8 +319,6 @@
 	     )
        )
 
-     ;; org-capture
-     ;; FIXME add todo item
      (setq org-capture-templates
 	   '(("a" "Maak afspraak")
 	     ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
@@ -346,8 +341,6 @@
       (use-package projectile
 	:ensure t
 	:config
-	;; My keyboard has no super key
-	;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 	(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 	(setq projectile-project-search-path '("~/projects/" "~/source/repos"))
 	(setq projectile-indexing-method 'alien)
@@ -356,6 +349,9 @@
 	)
     #+end_src
 *** [[https://github.com/nex3/perspective-el][perspective]]
+    Perspective provides named workspaces. Each perspective has its
+    own buffer list and its own window layout.
+
     [[https://github.com/nex3/perspective-el#some-musings-on-emacs-window-layouts][Some musings on emacs window layouts]]
     #+begin_src emacs-lisp :tangle yes
       (use-package perspective
@@ -367,6 +363,7 @@
 	)
     #+end_src
 *** [[https://github.com/bbatsov/persp-projectile][persp-projectile]]
+    Provides integration with projectile
     #+begin_src emacs-lisp :tangle yes
       (use-package persp-projectile
 	:ensure t
