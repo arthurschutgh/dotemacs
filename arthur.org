@@ -1,3 +1,4 @@
+#+TODO: TODO | DONE CANCELED
 * emacs config
 ** introduction
    This is my emacs configuration. Put the following code in init.el:
@@ -31,7 +32,6 @@
     to be as explicit as possible.
 *** TODO let company refrain from completion in comment blocks
 *** TODO read use-package documentation about deferred loading of packages
-*** TODO find out how to kill an ansi-term buffer after exiting the shell
 *** TODO UTF-8 encoding
 *** TODO configure org archiving
 *** TODO configure org refiling
@@ -47,7 +47,8 @@
 *** TODO move non-related code comments out of code blocks
 *** TODO treemacs?
     treemacs-persp, treemacs-projectile
-*** TODO find better theme
+*** CANCELED find out how to kill an ansi-term buffer after exiting the shell
+*** DONE find better theme
 *** DONE switch back to :ensure keyword in use-package declarations
     I like to be explicit
 *** DONE polish this configuration
