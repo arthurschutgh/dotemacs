@@ -1,19 +1,20 @@
-* emacs config introduction
-  This is my emacs configuration. Put the following code in init.el:
-  #+begin_src emacs-lisp :tangle no
+* emacs config
+** introduction
+   This is my emacs configuration. Put the following code in init.el:
+   #+begin_src emacs-lisp :tangle no
     (require 'org)
     (org-babel-load-file "/home/arthur/.emacs.d/arthur.org")
-  #+end_src
+   #+end_src
 
-  Above code extracts all code blocks with keyword =:tangle yes= from
-  this file and executes it.
+   Above code extracts all code blocks with keyword =:tangle yes= from
+   this file and executes it.
 
-  =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have two
-  hardlinks in =~/.emacs.d/=. =~/.emacs.d/init.el= has target
-  =~/projects/emacs.d/init.el= and =~/.emacs.d/arthur.org= has target
-  =~/projects/emacs.d/arthur.org=.
+   =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have two
+   hardlinks in =~/.emacs.d/=. =~/.emacs.d/init.el= has target
+   =~/projects/emacs.d/init.el= and =~/.emacs.d/arthur.org= has target
+   =~/projects/emacs.d/arthur.org=.
 
-  Make sure =~/.emacs= does not exist.
+   Make sure =~/.emacs= does not exist.
 ** emacs and opening symlinks that point to files under version control
   This file lives in ~/projects/emacs.d/. Initially I symlinked
   ~/.emacs.d/init.el and ~/.emacs.d/arthur.org/ to
@@ -23,6 +24,10 @@
   the problem by hardlinking.
 ** todo
 *** TODO choose directory to put backup files
+*** TODO switch back to :ensure keyword in use-package declarations
+    I like to be explicit
+*** TODO have a look at dired integration with projectile
+    Maybe there is no need for treemacs.
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
     to be as explicit as possible.
@@ -85,13 +90,13 @@
 #+begin_src emacs-lisp :tangle yes
   (tool-bar-mode -1) ;; no icons please
   (scroll-bar-mode -1) ;; who needs this?
-  ;; (menu-bar-mode -1) ;; menu bar is easy for discovering yasnippet shortcuts
+  ;; (menu-bar-mode -1) ;; menu bar is useful for discovering yasnippet shortcuts
 #+end_src
 *** theme
     Wombat theme comes with Emacs. I also tried solarized but I don't
     like it in org-mode. I need to find a better theme until then I
     will use wombat.
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (load-theme 'wombat)
 #+end_src
 
@@ -195,6 +200,22 @@
     (setq use-package-always-ensure t)
   #+end_src
 * packages
+** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
+   For the time being I stick with modus-vivendi
+#+begin_src emacs-lisp :tangle no
+  (use-package modus-operandi-theme
+    :ensure t
+    :config
+    (load-theme 'modus-operandi t)
+    )
+#+end_src
+#+begin_src emacs-lisp :tangle yes
+  (use-package modus-vivendi-theme
+    :ensure t
+    :config
+    (load-theme 'modus-vivendi t)
+    )
+#+end_src
 ** [[https://orgmode.org/][org-mode]]
    #+begin_src emacs-lisp :tangle yes
      (use-package org
@@ -333,7 +354,11 @@
 ** project management and workspaces
 *** [[https://github.com/bbatsov/projectile][projectile]]
     This seems to work: Put .projectile in a project directory. Run
-    projectile-discover-projects-in-directory in the parent directory
+    projectile-discover-projects-in-directory in the parent
+    directory. This isn't necessary with variable
+    projectile-project-search-path configured. Outside of these
+    directories I need to use the discover projects function.
+
     [[https://docs.projectile.mx/projectile/index.html][Documentation]]
     #+begin_src emacs-lisp :tangle yes
       (use-package projectile
