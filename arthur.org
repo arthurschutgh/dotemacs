@@ -1,4 +1,3 @@
-###+TODO: TODO POSTPONE | DONE CANCELED
 * emacs config
 ** introduction
    This is my emacs configuration. Put the following code in init.el:
@@ -24,7 +23,7 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO setup org fast access to TODO states
+*** TODO setup org-contacts
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
     to be as explicit as possible.
@@ -47,6 +46,7 @@
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
 *** CANCELED find out how to kill an ansi-term buffer after exiting the shell
+*** DONE setup org fast access to TODO states
 *** DONE clean up the packages section
 *** DONE treemacs?
     treemacs-persp, treemacs-projectile
@@ -295,42 +295,44 @@
 	:diminish which-key-mode
 	:config (which-key-mode 1))
     #+end_src
-** personal information management
-*** [[https://orgmode.org/][org-mode]]
-    #+begin_src emacs-lisp :tangle yes
-      (use-package org
-	:ensure t
-	:init (setq org-export-backends '(ascii html icalendar latex md odt))
-	:demand t
-	:mode (("\\.org$" . org-mode))
-	:bind (("C-c l" . org-store-link)
-	       ("C-c a" . org-agenda)
-	       ("C-c c" . org-capture)
-	       ("C-c b" . org-switchb))
-	:config
-	(setq org-agenda-files '("~/projects/old-org/index.org"))
-	(setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
-	(setq org-directory "~/projects/old-org/")
-	(setq org-startup-folded t)
-	(setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
-	(setq org-blank-before-new-entry (quote ((heading . nil)
-						 (plain-list-item . nil))))
-	(add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
-	;; the lambda in the line above is needed because of the -1 argument
-	(add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want in org-capture :-)
-	)
+** [[https://orgmode.org/][org-mode]]
+   #+begin_src emacs-lisp :tangle yes
+     (use-package org
+       :ensure t
+       :init (setq org-export-backends '(ascii html icalendar latex md odt))
+       :demand t
+       :mode (("\\.org$" . org-mode))
+       :bind (("C-c l" . org-store-link)
+	      ("C-c a" . org-agenda)
+	      ("C-c c" . org-capture)
+	      ("C-c b" . org-switchb))
+       :config
+       (setq org-agenda-files '("~/projects/old-org/index.org"))
+       (setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
+       (setq org-directory "~/projects/old-org/")
+       (setq org-startup-folded t)
+       (setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
+       (setq org-blank-before-new-entry (quote ((heading . nil)
+						(plain-list-item . nil))))
+       (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
+       ;; the lambda in the line above is needed because of the -1 argument
+       (add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want in org-capture :-)
+       (setq org-todo-keywords
+	     '((sequence "TODO(t)" "POSTPONE(p)" "|" "DONE(d)" "CANCELED(c)"))
+	     )
+       )
 
-      ;; org-capture
-      ;; FIXME add todo item
-      (setq org-capture-templates
-	    '(("a" "Maak afspraak")
-	      ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
-	      ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
-	      ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
-	      ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
-	      )
-	    )
-    #+end_src
+     ;; org-capture
+     ;; FIXME add todo item
+     (setq org-capture-templates
+	   '(("a" "Maak afspraak")
+	     ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
+	     ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
+	     ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
+	     ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
+	     )
+	   )
+   #+end_src
 ** project management and workspaces
 *** [[https://github.com/bbatsov/projectile][projectile]]
     This seems to work: Put .projectile in a project directory. Run
