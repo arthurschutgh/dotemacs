@@ -24,6 +24,7 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
+*** TODO clean up the packages section
 *** TODO have a look at dired integration with projectile
     Maybe there is no need for treemacs.
 *** TODO configure var use-package-hook-name-suffix
@@ -44,7 +45,7 @@
 *** TODO look up my old emacs config for interesting code snippets
 *** TODO org-super-agenda?
 *** TODO move non-related code comments out of code blocks
-*** TODO treemacs?
+*** POSTPONE treemacs?
     treemacs-persp, treemacs-projectile
 *** POSTPONE choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
@@ -391,6 +392,7 @@
 	(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 	(setq projectile-project-search-path '("~/projects/" "~/source/repos"))
 	(setq projectile-indexing-method 'alien)
+	(setq projectile-switch-project-action 'projectile-dired)
 	(projectile-mode +1)
 	)
     #+end_src
