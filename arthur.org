@@ -37,36 +37,13 @@
 *** TODO read use-package documentation about deferred loading of packages
 *** TODO look into opening symbolic links to files under version control
 *** TODO look up my old emacs config for interesting code snippets
+*** TODO setup some functions and variable to use throughout this configuration
 *** POSTPONE google-translate?
     https://github.com/atykhonov/google-translate
 *** POSTPONE org-super-agenda?
 *** POSTPONE choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
-*** CANCELED tab-bar-mode?
-    Using it with perspective is not recommended...
-*** CANCELED find out how to kill an ansi-term buffer after exiting the shell
-*** DONE move non-related code comments out of code blocks
-*** DONE setup org fast access to TODO states
-*** DONE clean up the packages section
-*** DONE treemacs?
-    treemacs-persp, treemacs-projectile
-*** DONE have a look at dired integration with projectile
-    Maybe there is no need for treemacs. update: C-c p m D to open
-    project files with dired mode
-*** DONE setup dired-hide-dotfiles
-*** DONE find better theme
-*** DONE switch back to :ensure keyword in use-package declarations
-    I like to be explicit
-*** DONE polish this configuration
-*** DONE restructure .gitignore to ignore everything except for the files in this repository
-*** DONE move links from comments to headlines
-*** DONE add capture template for quick notes to refile
-*** DONE make :ensure the default for use-package
-*** DONE put this in version control
-*** DONE write README.org for github
-*** DONE publish to github
-*** DONE clean up startup section
 * utilities
   Define some nice utility functions.
 * startup
@@ -306,6 +283,7 @@
        :config
        (setq org-directory "~/projects/old-org/")
        (setq org-agenda-files '("~/projects/old-org/index.org"))
+       (setq org-archive-location "~/projects/old-org/archive.org::* From %s")
        (setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
        (setq org-startup-folded t)
        (setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
