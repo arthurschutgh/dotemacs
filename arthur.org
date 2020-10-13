@@ -1,4 +1,4 @@
-#+TODO: TODO POSTPONE | DONE CANCELED
+###+TODO: TODO POSTPONE | DONE CANCELED
 * emacs config
 ** introduction
    This is my emacs configuration. Put the following code in init.el:
@@ -24,9 +24,7 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO clean up the packages section
-*** TODO have a look at dired integration with projectile
-    Maybe there is no need for treemacs.
+*** TODO setup org fast access to TODO states
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
     to be as explicit as possible.
@@ -45,12 +43,16 @@
 *** TODO look up my old emacs config for interesting code snippets
 *** TODO org-super-agenda?
 *** TODO move non-related code comments out of code blocks
-*** POSTPONE treemacs?
-    treemacs-persp, treemacs-projectile
 *** POSTPONE choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
 *** CANCELED find out how to kill an ansi-term buffer after exiting the shell
+*** DONE clean up the packages section
+*** DONE treemacs?
+    treemacs-persp, treemacs-projectile
+*** DONE have a look at dired integration with projectile
+    Maybe there is no need for treemacs. update: C-c p m D to open
+    project files with dired mode
 *** DONE setup dired-hide-dotfiles
 *** DONE find better theme
 *** DONE switch back to :ensure keyword in use-package declarations
@@ -205,175 +207,130 @@
     ;; (setq use-package-always-ensure t)
   #+end_src
 * packages
-** [[https://github.com/abo-abo/avy][avy]]
-   Move point to any character on the screen with C-:
-   #+begin_src emacs-lisp :tangle yes
-     (use-package avy
-       :ensure t
-       :bind (("C-:" . avy-goto-char))
-       )
-   #+end_src
-** [[https://github.com/company-mode/company-mode][company]]
-   Company mode is a code completion framework
-   [[http://company-mode.github.io/][website]]
-   #+begin_src emacs-lisp :tangle yes
-     ;; FIXME use :hook
-     ;; FIXME configure company to refrain from completion in comment blocks
-     (use-package company
-       :ensure t
-       ;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
-       :diminish company-mode
-       :demand t
-       :config
-       (setq company-idle-delay 0.0)
-       (add-hook 'prog-mode-hook 'company-mode) ;; only in programming modes
-       ;; (global-company-mode t)
-       )
-   #+end_src
-** [[https://github.com/myrjola/diminish.el][diminish]]
-   With the amount of packages I use the modeline becomes cluttered
-   quickly. Diminish mode deletes indicators from the modeline.
-#+begin_src emacs-lisp :tangle yes
-  (use-package diminish
-  :ensure t
-    )
-#+end_src
-** [[https://github.com/mattiasb/dired-hide-dotfiles][dired-hide-dotfiles]]
-#+begin_src emacs-lisp :tangle yes
-  (use-package dired-hide-dotfiles
-    :ensure t
-    :config
-    (define-key dired-mode-map "." 'dired-hide-dotfiles-mode)
-    (add-hook 'dired-mode-hook 'dired-hide-dotfiles-mode)
-    )
-#+end_src
-** [[https://github.com/lewang/flx][flx-ido]]
-   flx-ido is recommended by projectile documentation
-   #+begin_src emacs-lisp :tangle yes
-     (use-package flx-ido
-       :ensure t
-       :config
-       (require 'flx-ido)
-       (ido-mode 1)
-       (ido-everywhere 1)
-       (flx-ido-mode 1)
-       (setq ido-enable-flex-matching t)
-       (setq ido-use-faces nil)
-       )
-   #+end_src
-** [[https://github.com/flycheck/flycheck][flycheck]]
-   #+begin_src emacs-lisp :tangle yes
-     ;; FIXME use :hook
-     (use-package flycheck
-       :ensure t
-       :diminish flycheck-mode
-       :config
-       (add-hook 'prog-mode-hook 'flycheck-mode)
-       )
-   #+end_src
-** [[https://github.com/magit/magit][magit]]
-   #+begin_src emacs-lisp :tangle yes
-     ;; TODO install magit
-   #+end_src
-** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
-   For the time being I stick with modus-vivendi
-#+begin_src emacs-lisp :tangle no
-  (use-package modus-operandi-theme
-    :ensure t
-    :config
-    (load-theme 'modus-operandi t)
-    )
-#+end_src
-#+begin_src emacs-lisp :tangle yes
-  (use-package modus-vivendi-theme
-    :ensure t
-    :config
-    (load-theme 'modus-vivendi t)
-    )
-#+end_src
-** [[https://github.com/manateelazycat/multi-term][multi-term]]
-   Also have a look at aweshell.
-#+begin_src emacs-lisp :tangle yes
-  (use-package multi-term
-    :ensure t
-    :config
-    (global-set-key (kbd "C-c t") 'multi-term)
-    (setq multi-term-program "/bin/bash")
-  )
-#+end_src
-** [[https://orgmode.org/][org-mode]]
-   #+begin_src emacs-lisp :tangle yes
-     (use-package org
-       :ensure t
-       :init (setq org-export-backends '(ascii html icalendar latex md odt))
-       :demand t
-       :mode (("\\.org$" . org-mode))
-       :bind (("C-c l" . org-store-link)
-	      ("C-c a" . org-agenda)
-	      ("C-c c" . org-capture)
-	      ("C-c b" . org-switchb))
-       :config
-       (setq org-agenda-files '("~/projects/old-org/index.org"))
-       (setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
-       (setq org-directory "~/projects/old-org/")
-       (setq org-startup-folded t)
-       (setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
-       (setq org-blank-before-new-entry (quote ((heading . nil)
-						(plain-list-item . nil))))
-       (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
-       ;; the lambda in the line above is needed because of the -1 argument
-       (add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want in org-capture :-)
-       )
-
-     ;; org-capture
-     ;; FIXME add todo item
-     (setq org-capture-templates
-	   '(("a" "Maak afspraak")
-	     ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
-	     ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
-	     ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
-	     ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
-	     )
-	   )
-   #+end_src
-** [[https://github.com/Fuco1/smartparens][smartparens]]
-   Install according to these instructions: [[https://ebzzry.io/en/emacs-pairs/][Emacs and Pairs]]
-   #+begin_src emacs-lisp :tangle yes
-     ;; First: M-x package-install RET smartparens RET
-     ;; above command is not necessary
-     (use-package smartparens-config
-       :ensure smartparens
-       :diminish smartparens-mode
-       :config (progn (show-smartparens-global-mode t)))
-
-     (add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
-     ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-     ;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-     ;; smartparens seems to break C-- C-k to kill a line backwards
-     ;; workaround: C-0 C-k also kills a line backwards!
-   #+end_src
-** [[https://github.com/justbur/emacs-which-key][which-key]]
-   #+begin_src emacs-lisp :tangle yes
-     (use-package which-key
-       :ensure t
-       :diminish which-key-mode
-       :config (which-key-mode 1))
-   #+end_src
-** [[https://github.com/joaotavora/yasnippet][yasnippet]]
-   I like yasnippet. TAB is bound to yas-maybe-expand
-   #+begin_src emacs-lisp :tangle yes
-     (use-package yasnippet
-       :ensure t
-       :diminish (yas-minor-mode)
-       :config (yas-global-mode 1)
-       )
-   #+end_src
-** [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
-   #+begin_src emacs-lisp :tangle yes
-     (use-package yasnippet-snippets
+** general
+*** [[https://github.com/joaotavora/yasnippet][yasnippet]]
+    I like yasnippet. TAB is bound to yas-maybe-expand
+    #+begin_src emacs-lisp :tangle yes
+      (use-package yasnippet
+	:ensure t
+	:diminish (yas-minor-mode)
+	:config (yas-global-mode 1)
+	)
+    #+end_src
+*** [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
+    #+begin_src emacs-lisp :tangle yes
+      (use-package yasnippet-snippets
+      :ensure t
+	)
+    #+end_src
+*** [[https://github.com/abo-abo/avy][avy]]
+    Move point to any character on the screen with C-:
+    #+begin_src emacs-lisp :tangle yes
+      (use-package avy
+	:ensure t
+	:bind (("C-:" . avy-goto-char))
+	)
+    #+end_src
+*** [[https://github.com/myrjola/diminish.el][diminish]]
+    With the amount of packages I use the modeline becomes cluttered
+    quickly. Diminish mode deletes indicators from the modeline.
+ #+begin_src emacs-lisp :tangle yes
+   (use-package diminish
+   :ensure t
+     )
+ #+end_src
+*** [[https://github.com/mattiasb/dired-hide-dotfiles][dired-hide-dotfiles]]
+ #+begin_src emacs-lisp :tangle yes
+   (use-package dired-hide-dotfiles
      :ensure t
-       )
-   #+end_src
+     :config
+     (define-key dired-mode-map "." 'dired-hide-dotfiles-mode)
+     (add-hook 'dired-mode-hook 'dired-hide-dotfiles-mode)
+     )
+ #+end_src
+*** [[https://github.com/lewang/flx][flx-ido]]
+    flx-ido is recommended by projectile documentation
+    #+begin_src emacs-lisp :tangle yes
+      (use-package flx-ido
+	:ensure t
+	:config
+	(require 'flx-ido)
+	(ido-mode 1)
+	(ido-everywhere 1)
+	(flx-ido-mode 1)
+	(setq ido-enable-flex-matching t)
+	(setq ido-use-faces nil)
+	)
+    #+end_src
+*** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
+    For the time being I stick with modus-vivendi
+ #+begin_src emacs-lisp :tangle no
+   (use-package modus-operandi-theme
+     :ensure t
+     :config
+     (load-theme 'modus-operandi t)
+     )
+ #+end_src
+ #+begin_src emacs-lisp :tangle yes
+   (use-package modus-vivendi-theme
+     :ensure t
+     :config
+     (load-theme 'modus-vivendi t)
+     )
+ #+end_src
+*** [[https://github.com/manateelazycat/multi-term][multi-term]]
+    Also have a look at aweshell.
+ #+begin_src emacs-lisp :tangle yes
+   (use-package multi-term
+     :ensure t
+     :config
+     (global-set-key (kbd "C-c t") 'multi-term)
+     (setq multi-term-program "/bin/bash")
+   )
+ #+end_src
+*** [[https://github.com/justbur/emacs-which-key][which-key]]
+    #+begin_src emacs-lisp :tangle yes
+      (use-package which-key
+	:ensure t
+	:diminish which-key-mode
+	:config (which-key-mode 1))
+    #+end_src
+** personal information management
+*** [[https://orgmode.org/][org-mode]]
+    #+begin_src emacs-lisp :tangle yes
+      (use-package org
+	:ensure t
+	:init (setq org-export-backends '(ascii html icalendar latex md odt))
+	:demand t
+	:mode (("\\.org$" . org-mode))
+	:bind (("C-c l" . org-store-link)
+	       ("C-c a" . org-agenda)
+	       ("C-c c" . org-capture)
+	       ("C-c b" . org-switchb))
+	:config
+	(setq org-agenda-files '("~/projects/old-org/index.org"))
+	(setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
+	(setq org-directory "~/projects/old-org/")
+	(setq org-startup-folded t)
+	(setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
+	(setq org-blank-before-new-entry (quote ((heading . nil)
+						 (plain-list-item . nil))))
+	(add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
+	;; the lambda in the line above is needed because of the -1 argument
+	(add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want in org-capture :-)
+	)
+
+      ;; org-capture
+      ;; FIXME add todo item
+      (setq org-capture-templates
+	    '(("a" "Maak afspraak")
+	      ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
+	      ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
+	      ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
+	      ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
+	      )
+	    )
+    #+end_src
 ** project management and workspaces
 *** [[https://github.com/bbatsov/projectile][projectile]]
     This seems to work: Put .projectile in a project directory. Run
@@ -419,58 +376,106 @@
 	;; without persp-state-default-file
 	)
     #+end_src
-** language specific packages
-*** old setup
-    Use =:tangle no= to prevent extraction of this code block. I can
-    leave the code uncommented. Better display on github. :-)
-    #+begin_src emacs-lisp :tangle no
-      ;; ================================================================================
-      ;; old setup
-      ;; C#
-      ;; csharp-mode
-      (use-package csharp-mode
+** programming
+*** [[https://github.com/company-mode/company-mode][company]]
+    Company mode is a code completion framework
+    [[http://company-mode.github.io/][website]]
+    #+begin_src emacs-lisp :tangle yes
+      ;; FIXME use :hook
+      ;; FIXME configure company to refrain from completion in comment blocks
+      (use-package company
 	:ensure t
-	:mode "\\.cs\\'"
-	)
-
-      ;; omnisharp
-      ;; https://github.com/OmniSharp/omnisharp-emacs
-      ;; on first start: M-x omnisharp-install-server
-      ;; FIXME auto start omnisharp server?
-      (use-package omnisharp
-	:ensure t
-	:after company
-	:hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
-	:config (add-to-list 'company-backends 'company-omnisharp))
-
-
-      ;; python
-      ;; anaconda needs setuptools
-      ;; setuptools for python3 has already been installed on my system (Debian 10)
-      ;; to use python3 set this variable
-      (setq python-shell-interpreter "python3")
-      ;; anaconda
-      ;; https://github.com/pythonic-emacs/anaconda-mode
-      (use-package anaconda-mode
-	:ensure t
-	:hook ((python-mode . anaconda-mode) ;; -hook is added by use-package.el
-	       (python-mode . anaconda-eldoc-mode))
-	)
-
-      (use-package company-anaconda
-	:ensure t
-	:after company
-	:config (add-to-list 'company-backends 'company-anaconda)
-	)
-
-      ;; fsharp-mode
-      ;; https://github.com/fsharp/emacs-fsharp-mode
-      (use-package fsharp-mode
-	:defer t
-	:ensure t
-	:config (require 'eglot-fsharp)
+	;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
+	:diminish company-mode
+	:demand t
+	:config
+	(setq company-idle-delay 0.0)
+	(add-hook 'prog-mode-hook 'company-mode) ;; only in programming modes
+	;; (global-company-mode t)
 	)
     #+end_src
+*** [[https://github.com/flycheck/flycheck][flycheck]]
+    #+begin_src emacs-lisp :tangle yes
+      ;; FIXME use :hook
+      (use-package flycheck
+	:ensure t
+	:diminish flycheck-mode
+	:config
+	(add-hook 'prog-mode-hook 'flycheck-mode)
+	)
+    #+end_src
+*** [[https://github.com/magit/magit][magit]]
+    #+begin_src emacs-lisp :tangle yes
+      ;; TODO install magit
+    #+end_src
+*** [[https://github.com/Fuco1/smartparens][smartparens]]
+    Install according to these instructions: [[https://ebzzry.io/en/emacs-pairs/][Emacs and Pairs]]
+    #+begin_src emacs-lisp :tangle yes
+      ;; First: M-x package-install RET smartparens RET
+      ;; above command is not necessary
+      (use-package smartparens-config
+	:ensure smartparens
+	:diminish smartparens-mode
+	:config (progn (show-smartparens-global-mode t)))
+
+      (add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
+      ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+      ;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+      ;; smartparens seems to break C-- C-k to kill a line backwards
+      ;; workaround: C-0 C-k also kills a line backwards!
+    #+end_src
+*** language specific packages
+**** old setup
+     Use =:tangle no= to prevent extraction of this code block. I can
+     leave the code uncommented. Better display on github. :-)
+     #+begin_src emacs-lisp :tangle no
+       ;; ================================================================================
+       ;; old setup
+       ;; C#
+       ;; csharp-mode
+       (use-package csharp-mode
+	 :ensure t
+	 :mode "\\.cs\\'"
+	 )
+
+       ;; omnisharp
+       ;; https://github.com/OmniSharp/omnisharp-emacs
+       ;; on first start: M-x omnisharp-install-server
+       ;; FIXME auto start omnisharp server?
+       (use-package omnisharp
+	 :ensure t
+	 :after company
+	 :hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
+	 :config (add-to-list 'company-backends 'company-omnisharp))
+
+
+       ;; python
+       ;; anaconda needs setuptools
+       ;; setuptools for python3 has already been installed on my system (Debian 10)
+       ;; to use python3 set this variable
+       (setq python-shell-interpreter "python3")
+       ;; anaconda
+       ;; https://github.com/pythonic-emacs/anaconda-mode
+       (use-package anaconda-mode
+	 :ensure t
+	 :hook ((python-mode . anaconda-mode) ;; -hook is added by use-package.el
+		(python-mode . anaconda-eldoc-mode))
+	 )
+
+       (use-package company-anaconda
+	 :ensure t
+	 :after company
+	 :config (add-to-list 'company-backends 'company-anaconda)
+	 )
+
+       ;; fsharp-mode
+       ;; https://github.com/fsharp/emacs-fsharp-mode
+       (use-package fsharp-mode
+	 :defer t
+	 :ensure t
+	 :config (require 'eglot-fsharp)
+	 )
+     #+end_src
 * when emacs closes
   Apparently I need to delete arthur.el file otherwise Emacs won't see
   changes to arthur.org.
