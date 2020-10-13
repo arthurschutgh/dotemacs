@@ -24,7 +24,6 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO setup dired-hide-dotfiles
 *** TODO have a look at dired integration with projectile
     Maybe there is no need for treemacs.
 *** TODO configure var use-package-hook-name-suffix
@@ -51,6 +50,7 @@
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
 *** CANCELED find out how to kill an ansi-term buffer after exiting the shell
+*** DONE setup dired-hide-dotfiles
 *** DONE find better theme
 *** DONE switch back to :ensure keyword in use-package declarations
     I like to be explicit
