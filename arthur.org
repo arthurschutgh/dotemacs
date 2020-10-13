@@ -24,8 +24,6 @@
   the problem by hardlinking.
 ** todo
 *** TODO choose directory to put backup files
-*** TODO switch back to :ensure keyword in use-package declarations
-    I like to be explicit
 *** TODO have a look at dired integration with projectile
     Maybe there is no need for treemacs.
 *** TODO configure var use-package-hook-name-suffix
@@ -50,6 +48,8 @@
 *** TODO treemacs?
     treemacs-persp, treemacs-projectile
 *** TODO find better theme
+*** DONE switch back to :ensure keyword in use-package declarations
+    I like to be explicit
 *** DONE polish this configuration
 *** DONE restructure .gitignore to ignore everything except for the files in this repository
 *** DONE move links from comments to headlines
@@ -197,7 +197,7 @@
       (require 'use-package))
 
     (require 'use-package-ensure)
-    (setq use-package-always-ensure t)
+    ;; (setq use-package-always-ensure t)
   #+end_src
 * packages
 ** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
@@ -219,6 +219,7 @@
 ** [[https://orgmode.org/][org-mode]]
    #+begin_src emacs-lisp :tangle yes
      (use-package org
+       :ensure t
        :init (setq org-export-backends '(ascii html icalendar latex md odt))
        :demand t
        :mode (("\\.org$" . org-mode))
@@ -254,64 +255,72 @@
    With the amount of packages I use the modeline becomes cluttered
    quickly. Diminish mode deletes indicators from the modeline.
 #+begin_src emacs-lisp :tangle yes
-  ;; diminish
-  ;; https://github.com/myrjola/diminish.el
-  (use-package diminish)
+  (use-package diminish
+  :ensure t
+    )
 #+end_src
 ** [[https://github.com/justbur/emacs-which-key][which-key]]
    #+begin_src emacs-lisp :tangle yes
-(use-package which-key
-  :diminish which-key-mode
-  :config (which-key-mode 1))
+     (use-package which-key
+       :ensure t
+       :diminish which-key-mode
+       :config (which-key-mode 1))
    #+end_src
 ** [[https://github.com/abo-abo/avy][avy]]
    Move point to any character on the screen with C-:
    #+begin_src emacs-lisp :tangle yes
-(use-package avy
-  :bind (("C-:" . avy-goto-char))
-  )
+     (use-package avy
+       :ensure t
+       :bind (("C-:" . avy-goto-char))
+       )
    #+end_src
 ** [[https://github.com/joaotavora/yasnippet][yasnippet]]
    I like yasnippet. TAB is bound to yas-maybe-expand
    #+begin_src emacs-lisp :tangle yes
-(use-package yasnippet
-  :diminish (yas-minor-mode)
-  :config (yas-global-mode 1)
-  )
+     (use-package yasnippet
+       :ensure t
+       :diminish (yas-minor-mode)
+       :config (yas-global-mode 1)
+       )
    #+end_src
 ** [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
    #+begin_src emacs-lisp :tangle yes
-(use-package yasnippet-snippets)
+     (use-package yasnippet-snippets
+     :ensure t
+       )
    #+end_src
 ** [[https://github.com/company-mode/company-mode][company]]
-   Company mode is a completion framework
+   Company mode is a code completion framework
    [[http://company-mode.github.io/][website]]
    #+begin_src emacs-lisp :tangle yes
-;; FIXME use :hook
-;; FIXME configure company to refrain from completion in comment blocks
-(use-package company
-  ;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
-  :diminish company-mode
-  :demand t
-  :config
-  (setq company-idle-delay 0.0)
-  (add-hook 'prog-mode-hook 'company-mode) ;; only in programming modes
-  ;; (global-company-mode t)
-  )
+     ;; FIXME use :hook
+     ;; FIXME configure company to refrain from completion in comment blocks
+     (use-package company
+       :ensure t
+       ;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
+       :diminish company-mode
+       :demand t
+       :config
+       (setq company-idle-delay 0.0)
+       (add-hook 'prog-mode-hook 'company-mode) ;; only in programming modes
+       ;; (global-company-mode t)
+       )
    #+end_src
 ** [[https://github.com/flycheck/flycheck][flycheck]]
    #+begin_src emacs-lisp :tangle yes
-;; FIXME use :hook
-(use-package flycheck
-  :diminish flycheck-mode
-  :config
-  (add-hook 'prog-mode-hook 'flycheck-mode)
-  )
+     ;; FIXME use :hook
+     (use-package flycheck
+       :ensure t
+       :diminish flycheck-mode
+       :config
+       (add-hook 'prog-mode-hook 'flycheck-mode)
+       )
    #+end_src
 ** [[https://github.com/lewang/flx][flx-ido]]
    flx-ido is recommended by projectile documentation
    #+begin_src emacs-lisp :tangle yes
      (use-package flx-ido
+       :ensure t
        :config
        (require 'flx-ido)
        (ido-mode 1)
@@ -362,6 +371,7 @@
     [[https://docs.projectile.mx/projectile/index.html][Documentation]]
     #+begin_src emacs-lisp :tangle yes
       (use-package projectile
+	:ensure t
 	:config
 	;; My keyboard has no super key
 	;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
@@ -375,6 +385,7 @@
     [[https://github.com/nex3/perspective-el#some-musings-on-emacs-window-layouts][Some musings on emacs window layouts]]
     #+begin_src emacs-lisp :tangle yes
       (use-package perspective
+	:ensure t
 	:after projectile
 	:config
 	(persp-mode) ;; create main perspective
@@ -384,6 +395,7 @@
 *** [[https://github.com/bbatsov/persp-projectile][persp-projectile]]
     #+begin_src emacs-lisp :tangle yes
       (use-package persp-projectile
+	:ensure t
 	:after perspective
 	:config
 	  ;; is it necessary to load it here?
