@@ -204,6 +204,76 @@
     ;; (setq use-package-always-ensure t)
   #+end_src
 * packages
+** [[https://github.com/abo-abo/avy][avy]]
+   Move point to any character on the screen with C-:
+   #+begin_src emacs-lisp :tangle yes
+     (use-package avy
+       :ensure t
+       :bind (("C-:" . avy-goto-char))
+       )
+   #+end_src
+** [[https://github.com/company-mode/company-mode][company]]
+   Company mode is a code completion framework
+   [[http://company-mode.github.io/][website]]
+   #+begin_src emacs-lisp :tangle yes
+     ;; FIXME use :hook
+     ;; FIXME configure company to refrain from completion in comment blocks
+     (use-package company
+       :ensure t
+       ;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
+       :diminish company-mode
+       :demand t
+       :config
+       (setq company-idle-delay 0.0)
+       (add-hook 'prog-mode-hook 'company-mode) ;; only in programming modes
+       ;; (global-company-mode t)
+       )
+   #+end_src
+** [[https://github.com/myrjola/diminish.el][diminish]]
+   With the amount of packages I use the modeline becomes cluttered
+   quickly. Diminish mode deletes indicators from the modeline.
+#+begin_src emacs-lisp :tangle yes
+  (use-package diminish
+  :ensure t
+    )
+#+end_src
+** [[https://github.com/mattiasb/dired-hide-dotfiles][dired-hide-dotfiles]]
+#+begin_src emacs-lisp :tangle yes
+  (use-package dired-hide-dotfiles
+    :ensure t
+    :config
+    (define-key dired-mode-map "." 'dired-hide-dotfiles-mode)
+    (add-hook 'dired-mode-hook 'dired-hide-dotfiles-mode)
+    )
+#+end_src
+** [[https://github.com/lewang/flx][flx-ido]]
+   flx-ido is recommended by projectile documentation
+   #+begin_src emacs-lisp :tangle yes
+     (use-package flx-ido
+       :ensure t
+       :config
+       (require 'flx-ido)
+       (ido-mode 1)
+       (ido-everywhere 1)
+       (flx-ido-mode 1)
+       (setq ido-enable-flex-matching t)
+       (setq ido-use-faces nil)
+       )
+   #+end_src
+** [[https://github.com/flycheck/flycheck][flycheck]]
+   #+begin_src emacs-lisp :tangle yes
+     ;; FIXME use :hook
+     (use-package flycheck
+       :ensure t
+       :diminish flycheck-mode
+       :config
+       (add-hook 'prog-mode-hook 'flycheck-mode)
+       )
+   #+end_src
+** [[https://github.com/magit/magit][magit]]
+   #+begin_src emacs-lisp :tangle yes
+     ;; TODO install magit
+   #+end_src
 ** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
    For the time being I stick with modus-vivendi
 #+begin_src emacs-lisp :tangle no
@@ -219,6 +289,16 @@
     :config
     (load-theme 'modus-vivendi t)
     )
+#+end_src
+** [[https://github.com/manateelazycat/multi-term][multi-term]]
+   Also have a look at aweshell.
+#+begin_src emacs-lisp :tangle yes
+  (use-package multi-term
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c t") 'multi-term)
+    (setq multi-term-program "/bin/bash")
+  )
 #+end_src
 ** [[https://orgmode.org/][org-mode]]
    #+begin_src emacs-lisp :tangle yes
@@ -255,94 +335,6 @@
 	     )
 	   )
    #+end_src
-** [[https://github.com/mattiasb/dired-hide-dotfiles][dired-hide-dotfiles]]
-#+begin_src emacs-lisp :tangle yes
-  (use-package dired-hide-dotfiles
-    :ensure t
-    :config
-    (define-key dired-mode-map "." 'dired-hide-dotfiles-mode)
-    (add-hook 'dired-mode-hook 'dired-hide-dotfiles-mode)
-    )
-#+end_src
-** [[https://github.com/myrjola/diminish.el][diminish]]
-   With the amount of packages I use the modeline becomes cluttered
-   quickly. Diminish mode deletes indicators from the modeline.
-#+begin_src emacs-lisp :tangle yes
-  (use-package diminish
-  :ensure t
-    )
-#+end_src
-** [[https://github.com/justbur/emacs-which-key][which-key]]
-   #+begin_src emacs-lisp :tangle yes
-     (use-package which-key
-       :ensure t
-       :diminish which-key-mode
-       :config (which-key-mode 1))
-   #+end_src
-** [[https://github.com/abo-abo/avy][avy]]
-   Move point to any character on the screen with C-:
-   #+begin_src emacs-lisp :tangle yes
-     (use-package avy
-       :ensure t
-       :bind (("C-:" . avy-goto-char))
-       )
-   #+end_src
-** [[https://github.com/joaotavora/yasnippet][yasnippet]]
-   I like yasnippet. TAB is bound to yas-maybe-expand
-   #+begin_src emacs-lisp :tangle yes
-     (use-package yasnippet
-       :ensure t
-       :diminish (yas-minor-mode)
-       :config (yas-global-mode 1)
-       )
-   #+end_src
-** [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
-   #+begin_src emacs-lisp :tangle yes
-     (use-package yasnippet-snippets
-     :ensure t
-       )
-   #+end_src
-** [[https://github.com/company-mode/company-mode][company]]
-   Company mode is a code completion framework
-   [[http://company-mode.github.io/][website]]
-   #+begin_src emacs-lisp :tangle yes
-     ;; FIXME use :hook
-     ;; FIXME configure company to refrain from completion in comment blocks
-     (use-package company
-       :ensure t
-       ;; :init (add-to-list 'company-backends 'company-capf) ;; is this necessary?
-       :diminish company-mode
-       :demand t
-       :config
-       (setq company-idle-delay 0.0)
-       (add-hook 'prog-mode-hook 'company-mode) ;; only in programming modes
-       ;; (global-company-mode t)
-       )
-   #+end_src
-** [[https://github.com/flycheck/flycheck][flycheck]]
-   #+begin_src emacs-lisp :tangle yes
-     ;; FIXME use :hook
-     (use-package flycheck
-       :ensure t
-       :diminish flycheck-mode
-       :config
-       (add-hook 'prog-mode-hook 'flycheck-mode)
-       )
-   #+end_src
-** [[https://github.com/lewang/flx][flx-ido]]
-   flx-ido is recommended by projectile documentation
-   #+begin_src emacs-lisp :tangle yes
-     (use-package flx-ido
-       :ensure t
-       :config
-       (require 'flx-ido)
-       (ido-mode 1)
-       (ido-everywhere 1)
-       (flx-ido-mode 1)
-       (setq ido-enable-flex-matching t)
-       (setq ido-use-faces nil)
-       )
-   #+end_src
 ** [[https://github.com/Fuco1/smartparens][smartparens]]
    Install according to these instructions: [[https://ebzzry.io/en/emacs-pairs/][Emacs and Pairs]]
    #+begin_src emacs-lisp :tangle yes
@@ -359,20 +351,28 @@
      ;; smartparens seems to break C-- C-k to kill a line backwards
      ;; workaround: C-0 C-k also kills a line backwards!
    #+end_src
-** [[https://github.com/magit/magit][magit]]
+** [[https://github.com/justbur/emacs-which-key][which-key]]
    #+begin_src emacs-lisp :tangle yes
-     ;; TODO install magit
+     (use-package which-key
+       :ensure t
+       :diminish which-key-mode
+       :config (which-key-mode 1))
    #+end_src
-** [[https://github.com/manateelazycat/multi-term][multi-term]]
-   Also have a look at aweshell.
-#+begin_src emacs-lisp :tangle yes
-  (use-package multi-term
-    :ensure t
-    :config
-    (global-set-key (kbd "C-c t") 'multi-term)
-    (setq multi-term-program "/bin/bash")
-  )
-#+end_src
+** [[https://github.com/joaotavora/yasnippet][yasnippet]]
+   I like yasnippet. TAB is bound to yas-maybe-expand
+   #+begin_src emacs-lisp :tangle yes
+     (use-package yasnippet
+       :ensure t
+       :diminish (yas-minor-mode)
+       :config (yas-global-mode 1)
+       )
+   #+end_src
+** [[https://github.com/AndreaCrotti/yasnippet-snippets][yasnippet-snippets]]
+   #+begin_src emacs-lisp :tangle yes
+     (use-package yasnippet-snippets
+     :ensure t
+       )
+   #+end_src
 ** project management and workspaces
 *** [[https://github.com/bbatsov/projectile][projectile]]
     This seems to work: Put .projectile in a project directory. Run
