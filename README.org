@@ -1,10 +1,12 @@
 * Emacs configuration
   This is my emacs configuration. You can read it [[https://github.com/arthurschutgh/dotemacs/blob/master/arthur.org][here]].
 * Why Emacs?
+  Emacs allows you to do allmost /all/ of your computing in one program.
+  - [[https://www.youtube.com/watch?v=jNa3axo40qM][Multiple cursors and macros]] *impressive!*
+  - [[https://www.youtube.com/watch?v=SzA2YODtgK4][Getting Started With Org Mode]] *recommended*
+  - [[https://www.gnu.org/software/emacs/tour/index.html][A Guided Tour of Emacs]]
   - [[https://batsov.com/articles/2011/11/19/why-emacs/][Why Emacs? by Bozhidar Batsov]]
   - [[https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/][The most successful malleable system in history]]
-  - [[https://www.gnu.org/software/emacs/tour/index.html][A Guided Tour of Emacs]]
-  - [[https://www.youtube.com/watch?v=jNa3axo40qM][Multiple cursors and macros]] *impressive!*
 * For beginners
   Learning Emacs is a life long journey. Start by reading the
   tutorial. Press C-h t to start the tutorial. This means: press
@@ -32,6 +34,7 @@
    These configurations are intimidating. I find them useful to gain
    new ideas. I didn't know there is even a google-translate package
    for Emacs!
+   - [[https://github.com/hrs/dotfiles][Emacs config by Harry R. Schwartz]] (less intimidating)
    - [[https://github.com/jwiegley/dot-emacs][Emacs config by John Wiegley]]
    - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
    - [[https://github.com/bbatsov/emacs.d][Bozhidar's Emacs config]]

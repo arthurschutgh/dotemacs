@@ -1,4 +1,4 @@
-* emacs config setup
+* emacs config introduction
   This is my emacs configuration. Put the following code in init.el:
   #+begin_src emacs-lisp :tangle no
     (require 'org)
@@ -148,14 +148,19 @@
 #+end_src
 *** kill whole line
     When killing a line also kill the newline character
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (setq-default kill-whole-line t)
 #+end_src
 *** ansi-term
-    This is a decent terminal emulator.
-#+begin_src emacs-lisp :tangle yes
+    This is a decent terminal emulator. I now use multi-term.
+#+begin_src emacs-lisp :tangle no
   (defun arh/ansi-term () (interactive) (ansi-term "bash"))
   (global-set-key (kbd "C-c t") 'arh/ansi-term)
+#+end_src
+*** save place
+    Remebers location of point in a buffer.
+#+begin_src emacs-lisp :tangle yes
+  (save-place-mode t)
 #+end_src
 * [[https://melpa.org/#/][melpa]] config
   Code according to melpa.org
@@ -205,6 +210,7 @@
        (setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
        (setq org-directory "~/projects/old-org/")
        (setq org-startup-folded t)
+       (setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
        (setq org-blank-before-new-entry (quote ((heading . nil)
 						(plain-list-item . nil))))
        (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
@@ -314,6 +320,16 @@
    #+begin_src emacs-lisp :tangle yes
      ;; TODO install magit
    #+end_src
+** [[https://github.com/manateelazycat/multi-term][multi-term]]
+   Also have a look at aweshell.
+#+begin_src emacs-lisp :tangle yes
+  (use-package multi-term
+    :ensure t
+    :config
+    (global-set-key (kbd "C-c t") 'multi-term)
+    (setq multi-term-program "/bin/bash")
+  )
+#+end_src
 ** project management and workspaces
 *** [[https://github.com/bbatsov/projectile][projectile]]
     This seems to work: Put .projectile in a project directory. Run
