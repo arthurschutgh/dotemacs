@@ -22,6 +22,8 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
+*** TODO python mode
+*** TODO add some utility functions
 *** TODO web-mode
 *** TODO skewer
 *** TODO php-mode
@@ -55,6 +57,10 @@
 	gc-cons-percentage 0.6
 	read-process-output-max (* 10 1024 1024)
 	)
+#+end_src
+** exec path
+#+begin_src emacs-lisp :tangle yes
+  (add-to-list 'exec-path "~/.local/bin/")
 #+end_src
 ** [[https://melpa.org/#/][melpa]] config
    Code according to melpa.org
@@ -381,8 +387,18 @@
       ;; smartparens seems to break C-- C-k to kill a line backwards
       ;; workaround: C-0 C-k also kills a line backwards!
     #+end_src
+*** [[https://github.com/joaotavora/eglot][eglot]]
+    Simple LSP client
+#+begin_src emacs-lisp :tangle yes
+  (use-package eglot
+    :ensure t
+    )
+#+end_src
 *** language specific packages
 **** python
+#+begin_src emacs-lisp :tangle yes
+
+#+end_src
 **** csharp
 #+begin_src emacs-lisp :tangle yes
   (use-package csharp-mode
