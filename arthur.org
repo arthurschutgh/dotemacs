@@ -62,13 +62,14 @@
 #+end_src
 ** exec path
 #+begin_src emacs-lisp :tangle yes
-  (add-to-list 'exec-path "~/.local/bin/")
+  (add-to-list 'exec-path (expand-file-name "~/.local/bin/"))
 #+end_src
 ** [[https://melpa.org/#/][melpa]] config
    Code according to melpa.org
    #+begin_src emacs-lisp :tangle yes
      (require 'package)
      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+     ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
      ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
      ;; and `package-pinned-packages`. Most users will not need or want to do this.
      ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -244,6 +245,10 @@
      (setq multi-term-program "/bin/bash")
    )
  #+end_src
+*** vterm
+#+begin_src emacs-lisp :tangle yes
+
+#+end_src
 *** [[https://github.com/justbur/emacs-which-key][which-key]]
     Which-key is a minor mode for Emacs that displays the key bindings
     following your currently entered incomplete command (a prefix) in
@@ -402,16 +407,27 @@
 #+begin_src emacs-lisp :tangle yes
   (use-package python-mode
     :ensure t
-    :after eglot
+  ;;  :after eglot
     :config
-    (setq python-shell-interpreter "python3")
+    (setq python-shell-interpreter "python3"
+	  python-shell-interpreter-args "-i"
+	  tab-width 4)
     )
 
   (use-package elpy
     :ensure t
-    :after python-mode
+    ;; :pin melpa-stable
+    ;; :after python-mode
     :config
     (elpy-enable)
+    (setq elpy-rpc-python-command "python3")
+
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+    ;; update: elpy uses company for completion
+    ;; leave code completion to elpy
+    ;; (add-hook 'org-csharp-hook (lambda () (company-mode -1)))
     )
 
   ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
