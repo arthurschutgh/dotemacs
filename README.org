@@ -1,5 +1,9 @@
 * Emacs configuration
   This is my emacs configuration. You can read it [[https://github.com/arthurschutgh/dotemacs/blob/master/arthur.org][here]].
+
+  Rant: I have a fair amount of trouble getting language servers
+  to work. The [[https://github.com/OmniSharp/omnisharp-emacs][Omnisharp server]] by Microsoft for C# development has
+  been the easiest to install.
 * Why Emacs?
   Emacs allows you to do allmost /all/ of your computing in one program.
   - [[https://www.youtube.com/watch?v=jNa3axo40qM][Multiple cursors and macros]] *impressive!*
