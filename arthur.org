@@ -22,7 +22,7 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO python mode
+*** DONE python mode
 *** TODO hydra
 *** TODO ivy
 *** TODO add some utility functions
@@ -33,7 +33,6 @@
 *** TODO setup org-contacts
 *** TODO setup elpher mode (gopher and gemini client)
 *** TODO consider using ivy
-*** TODO configure python environment
 *** TODO install magit
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
@@ -179,6 +178,12 @@
 #+end_src
 * packages
 ** general
+*** [[https://thelambdalab.xyz/elpher/][elpher]]
+#+begin_src emacs-lisp :tangle yes
+  (use-package elpher
+    :ensure t
+    )
+#+end_src
 *** [[https://github.com/joaotavora/yasnippet][yasnippet]]
     I like yasnippet. TAB is bound to yas-maybe-expand
     #+begin_src emacs-lisp :tangle yes
@@ -245,7 +250,7 @@
      (setq multi-term-program "/bin/bash")
    )
  #+end_src
-*** vterm
+*** [[https://github.com/akermu/emacs-libvterm][vterm]]
 #+begin_src emacs-lisp :tangle yes
   (use-package vterm
     :init (setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
