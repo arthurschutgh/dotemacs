@@ -23,6 +23,8 @@
   the problem by hardlinking.
 ** todo
 *** TODO python mode
+*** TODO hydra
+*** TODO ivy
 *** TODO add some utility functions
 *** TODO web-mode
 *** TODO skewer
@@ -48,9 +50,9 @@
 *** POSTPONE choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
-* utilities
-  Define some nice utility functions.
 * startup
+** utilities
+   Define some nice utility functions.
 ** garbage collector
 #+begin_src emacs-lisp :tangle yes
   (setq gc-cons-threshold (* 50 1024 1024)
@@ -309,7 +311,7 @@
 	(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 	(setq projectile-project-search-path '("~/projects/" "~/source/repos"))
 	(setq projectile-indexing-method 'alien)
-	(setq projectile-switch-project-action 'projectile-dired)
+	;; (setq projectile-switch-project-action 'projectile-dired)
 	(projectile-mode +1)
 	)
     #+end_src
@@ -387,17 +389,44 @@
       ;; smartparens seems to break C-- C-k to kill a line backwards
       ;; workaround: C-0 C-k also kills a line backwards!
     #+end_src
-*** [[https://github.com/joaotavora/eglot][eglot]]
+*** [[https://github.com/joaotavora/eglot][eglot]] DISABLED
     Simple LSP client
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (use-package eglot
+    :after (:all company flycheck)
     :ensure t
     )
 #+end_src
 *** language specific packages
 **** python
 #+begin_src emacs-lisp :tangle yes
+  (use-package python-mode
+    :ensure t
+    :after eglot
+    :config
+    (setq python-shell-interpreter "python3")
+    )
 
+  (use-package elpy
+    :ensure t
+    :after python-mode
+    :config
+    (elpy-enable)
+    )
+
+  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+  ;; ;; http://tkf.github.io/emacs-jedi/latest/#configuration
+  ;; ;; https://archive.zhimingwang.org/blog/2015-04-26-using-python-3-with-emacs-jedi.html
+  ;; (use-package company-jedi
+  ;;   :ensure t
+  ;;   :after elpy
+  ;;   :config
+  ;;   (add-to-list 'company-backends 'company-jedi)
+  ;;   (add-hook 'python-mode-hook 'jedi:setup)
+  ;;   (setq jedi:environment-root "jedi")
+  ;;   (setq jedi:complete-on-dot t)
+  ;;   )
 #+end_src
 **** csharp
 #+begin_src emacs-lisp :tangle yes
