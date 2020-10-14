@@ -63,11 +63,12 @@
 #+begin_src emacs-lisp :tangle yes
   (add-to-list 'exec-path (expand-file-name "~/.local/bin/"))
 #+end_src
-** [[https://melpa.org/#/][melpa]] config
+** package repositories
    Code according to melpa.org
    #+begin_src emacs-lisp :tangle yes
      (require 'package)
      (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+     (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
      ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
      ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
      ;; and `package-pinned-packages`. Most users will not need or want to do this.
@@ -275,7 +276,8 @@
     plain-text system.
     #+begin_src emacs-lisp :tangle yes
       (use-package org
-	:ensure t
+	:ensure org-plus-contrib
+	:pin org
 	:init (setq org-export-backends '(ascii html icalendar latex md odt))
 	:demand t
 	:mode (("\\.org$" . org-mode))
