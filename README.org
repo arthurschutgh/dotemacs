@@ -1,13 +1,14 @@
 * Emacs configuration
   This is my emacs configuration. You can read it [[https://github.com/arthurschutgh/dotemacs/blob/master/arthur.org][here]].
 
-  Rant: I have a fair amount of trouble getting language servers
-  to work. The [[https://github.com/OmniSharp/omnisharp-emacs][Omnisharp server]] by Microsoft for C# development has
-  been the easiest to install.
-* Why Emacs?
-  Emacs allows you to do allmost /all/ of your computing in one program.
-  - [[https://www.youtube.com/watch?v=jNa3axo40qM][Multiple cursors and macros]] *impressive!*
-  - [[https://www.youtube.com/watch?v=SzA2YODtgK4][Getting Started With Org Mode]] *recommended*
+  Emacs allows you to do allmost /all/ of your computing in one
+  program. You can read your mail, do calculations, organize your life
+  with orgmode (agenda, todo items, spreadsheets, lists, notes, plan
+  projects, literate programming, manage contacts), write documents,
+  publish to your blog, write programs, etc. The possibilities are
+  endless. It is an integrated /computing/ environment.
+  - [[https://www.youtube.com/watch?v=jNa3axo40qM][Multiple cursors and macros]] *impressive!* (4 minute video)
+  - [[https://www.youtube.com/watch?v=SzA2YODtgK4][Getting Started With Org Mode]] *recommended* (hour long presentation)
   - [[https://www.gnu.org/software/emacs/tour/index.html][A Guided Tour of Emacs]]
   - [[https://batsov.com/articles/2011/11/19/why-emacs/][Why Emacs? by Bozhidar Batsov]]
   - [[https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/][The most successful malleable system in history]]

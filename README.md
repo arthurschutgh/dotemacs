@@ -1,43 +1,38 @@
 
 # Table of Contents
 
-1.  [Emacs configuration](#orgcce8cd2)
-2.  [Why Emacs?](#org02c86b9)
-3.  [For beginners](#org255386c)
-    1.  [basic configurations](#orgf9461be)
-    2.  [Emacs documenation](#org9f61908)
-        1.  [Manual](#org1d35582)
-        2.  [Emacs lisp](#orgb768a9a)
-    3.  [org-mode](#org5311c6d)
-    4.  [configurations by Emacs power users](#orga1b2c0b)
-4.  [Compiling Emacs 27.1 on Debian Buster (10)](#org6c4f78e)
+1.  [Emacs configuration](#org1778226)
+2.  [For beginners](#orgc4bfe9d)
+    1.  [basic configurations](#org4800bdc)
+    2.  [Emacs documenation](#org922c87c)
+        1.  [Manual](#orgd0ab2fe)
+        2.  [Emacs lisp](#org03298ee)
+    3.  [org-mode](#org2f259a7)
+    4.  [configurations by Emacs power users](#orge0f268f)
+3.  [Compiling Emacs 27.1 on Debian Buster (10)](#org9a7d851)
 
 
-<a id="orgcce8cd2"></a>
+<a id="org1778226"></a>
 
 # Emacs configuration
 
 This is my emacs configuration. You can read it [here](https://github.com/arthurschutgh/dotemacs/blob/master/arthur.org).
 
-Rant: I have a fair amount of trouble getting language servers
-to work. The [Omnisharp server](https://github.com/OmniSharp/omnisharp-emacs) by Microsoft for C# development has
-been the easiest to install.
+Emacs allows you to do allmost *all* of your computing in one
+program. You can read your mail, do calculations, organize your life
+with orgmode (agenda, todo items, spreadsheets, lists, notes, plan
+projects, literate programming, manage contacts), write documents,
+publish to your blog, write programs, etc. The possibilities are
+endless. It is an integrated *computing* environment.
 
-
-<a id="org02c86b9"></a>
-
-# Why Emacs?
-
-Emacs allows you to do allmost *all* of your computing in one program.
-
--   [Multiple cursors and macros](https://www.youtube.com/watch?v=jNa3axo40qM) **impressive!**
--   [Getting Started With Org Mode](https://www.youtube.com/watch?v=SzA2YODtgK4) **recommended**
+-   [Multiple cursors and macros](https://www.youtube.com/watch?v=jNa3axo40qM) **impressive!** (4 minute video)
+-   [Getting Started With Org Mode](https://www.youtube.com/watch?v=SzA2YODtgK4) **recommended** (hour long presentation)
 -   [A Guided Tour of Emacs](https://www.gnu.org/software/emacs/tour/index.html)
 -   [Why Emacs? by Bozhidar Batsov](https://batsov.com/articles/2011/11/19/why-emacs/)
 -   [The most successful malleable system in history](https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/)
 
 
-<a id="org255386c"></a>
+<a id="orgc4bfe9d"></a>
 
 # For beginners
 
@@ -46,7 +41,7 @@ tutorial. Press C-h t to start the tutorial. This means: press
 Ctrl-h followed by t.
 
 
-<a id="orgf9461be"></a>
+<a id="org4800bdc"></a>
 
 ## basic configurations
 
@@ -57,19 +52,19 @@ customizations:
 -   [Configuring Emacs from Scratch - Intro](https://medium.com/@suvratapte/configuring-emacs-from-scratch-intro-3157bed9d040)
 
 
-<a id="org9f61908"></a>
+<a id="org922c87c"></a>
 
 ## Emacs documenation
 
 
-<a id="org1d35582"></a>
+<a id="orgd0ab2fe"></a>
 
 ### Manual
 
 -   [GNU Emacs manual](https://www.gnu.org/software/emacs/manual/emacs.html)
 
 
-<a id="orgb768a9a"></a>
+<a id="org03298ee"></a>
 
 ### Emacs lisp
 
@@ -80,7 +75,7 @@ Leveraging the power of Emacs requires learning Emacs lisp.
 -   [GNU Emacs Lisp Reference Manual](https://www.gnu.org/software/emacs/manual/elisp.html) (not really needed by beginners)
 
 
-<a id="org5311c6d"></a>
+<a id="org2f259a7"></a>
 
 ## org-mode
 
@@ -92,7 +87,7 @@ your life in plain text files.
 -   [org-mode setup by norang.ca](http://doc.norang.ca/org-mode.html)
 
 
-<a id="orga1b2c0b"></a>
+<a id="orge0f268f"></a>
 
 ## configurations by Emacs power users
 
@@ -109,7 +104,7 @@ for Emacs!
 -   [Emacs config by Doug Davis](https://github.com/douglasdavis/dot-emacs)
 
 
-<a id="org6c4f78e"></a>
+<a id="org9a7d851"></a>
 
 # Compiling Emacs 27.1 on Debian Buster (10)
 
