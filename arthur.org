@@ -23,7 +23,7 @@
   the problem by hardlinking.
 ** todo
 *** TODO configure org archiving
-*** TODO setup UTF-8 encoding
+*** POSTPONE setup UTF-8 encoding
 *** TODO configure org refiling
 *** TODO setup org-contacts
 *** TODO setup elpher mode (gopher and gemini client)
@@ -51,7 +51,7 @@
 #+begin_src emacs-lisp :tangle yes
   (setq gc-cons-threshold (* 50 1024 1024)
 	gc-cons-percentage 0.6
-	;; read-process-output-max
+	read-process-output-max (* 10 1024 1024)
 	)
 #+end_src
 ** [[https://melpa.org/#/][melpa]] config
@@ -99,27 +99,11 @@
   (scroll-bar-mode -1) ;; who needs this?
   ;; (menu-bar-mode -1) ;; menu bar is useful for discovering yasnippet abbreviations
 #+end_src
-*** [[https://gitlab.com/protesilaos/modus-themes][modus themes]]
-    For the time being I stick with modus-vivendi
- #+begin_src emacs-lisp :tangle no
-   (use-package modus-operandi-theme
-     :ensure t
-     :config
-     (load-theme 'modus-operandi t)
-     )
- #+end_src
- #+begin_src emacs-lisp :tangle yes
-   (use-package modus-vivendi-theme
-     :ensure t
-     :config
-     (load-theme 'modus-vivendi t)
-     )
- #+end_src
 *** theme
     Wombat theme comes with Emacs. I also tried solarized but I don't
     like it in org-mode. I need to find a better theme until then I
     will use wombat.
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp :tangle yes
   (load-theme 'wombat)
 #+end_src
 *** modeline
@@ -266,47 +250,47 @@
 	:diminish which-key-mode
 	:config (which-key-mode 1))
     #+end_src
-** [[https://orgmode.org/][org-mode]]
-   Org mode is for keeping notes, maintaining TODO lists, planning
-   projects, and authoring documents with a fast and effective
-   plain-text system.
-   #+begin_src emacs-lisp :tangle yes
-     (use-package org
-       :ensure t
-       :init (setq org-export-backends '(ascii html icalendar latex md odt))
-       :demand t
-       :mode (("\\.org$" . org-mode))
-       :bind (("C-c l" . org-store-link)
-	      ("C-c a" . org-agenda)
-	      ("C-c c" . org-capture)
-	      ("C-c b" . org-switchb))
-       :config
-       (setq org-directory "~/projects/old-org/")
-       (setq org-agenda-files '("~/projects/old-org/index.org"))
-       (setq org-archive-location "~/projects/old-org/archive.org::* From %s")
-       (setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
-       (setq org-startup-folded t)
-       (setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
-       (setq org-blank-before-new-entry (quote ((heading . nil)
-						(plain-list-item . nil))))
-       (add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
-       ;; the lambda in the line above is needed because of the -1 argument
-       (add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want it in org-capture :-)
-       (setq org-todo-keywords
-	     '((sequence "TODO(t)" "POSTPONE(p)" "|" "DONE(d)" "CANCELED(c)"))
-	     )
-       )
+*** [[https://orgmode.org/][org-mode]]
+    Org mode is for keeping notes, maintaining TODO lists, planning
+    projects, and authoring documents with a fast and effective
+    plain-text system.
+    #+begin_src emacs-lisp :tangle yes
+      (use-package org
+	:ensure t
+	:init (setq org-export-backends '(ascii html icalendar latex md odt))
+	:demand t
+	:mode (("\\.org$" . org-mode))
+	:bind (("C-c l" . org-store-link)
+	       ("C-c a" . org-agenda)
+	       ("C-c c" . org-capture)
+	       ("C-c b" . org-switchb))
+	:config
+	(setq org-directory "~/projects/old-org/")
+	(setq org-agenda-files '("~/projects/old-org/index.org"))
+	(setq org-archive-location "~/projects/old-org/archive.org::* From %s")
+	(setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
+	(setq org-startup-folded t)
+	(setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
+	(setq org-blank-before-new-entry (quote ((heading . nil)
+						 (plain-list-item . nil))))
+	(add-hook 'org-mode-hook (lambda () (auto-fill-mode -1))) ;; disable auto-fill-mode in org-mode
+	;; the lambda in the line above is needed because of the -1 argument
+	(add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want it in org-capture :-)
+	(setq org-todo-keywords
+	      '((sequence "TODO(t)" "POSTPONE(p)" "|" "DONE(d)" "CANCELED(c)"))
+	      )
+	)
 
-     (setq org-capture-templates
-	   '(("a" "Maak afspraak")
-	     ;; FIXME: is the following item necessary?
-	     ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
-	     ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
-	     ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
-	     ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
-	     )
-	   )
-   #+end_src
+      (setq org-capture-templates
+	    '(("a" "Maak afspraak")
+	      ;; FIXME: is the following item necessary?
+	      ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
+	      ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
+	      ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
+	      ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
+	      )
+	    )
+    #+end_src
 ** project management and workspaces
 *** [[https://github.com/bbatsov/projectile][projectile]]
     This seems to work: Put .projectile in a project directory. Run
