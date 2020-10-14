@@ -237,11 +237,11 @@
     #+end_src
 *** [[https://github.com/manateelazycat/multi-term][multi-term]]
     After ^D the shell closes and the associated buffer.
- #+begin_src emacs-lisp :tangle yes
+ #+begin_src emacs-lisp :tangle no
    (use-package multi-term
      :ensure t
      :config
-     (global-set-key (kbd "C-c t") 'multi-term)
+     ;; (global-set-key (kbd "C-c t") 'multi-term)
      (setq multi-term-program "/bin/bash")
    )
  #+end_src
@@ -251,6 +251,7 @@
     :init (setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
     :ensure t
     :config
+    (global-set-key (kbd "C-c t") 'vterm)
     )
 #+end_src
 *** [[https://github.com/justbur/emacs-which-key][which-key]]
