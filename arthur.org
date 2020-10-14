@@ -22,8 +22,9 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO configure org archiving
-*** POSTPONE setup UTF-8 encoding
+*** TODO web-mode
+*** TODO skewer
+*** TODO php-mode
 *** TODO configure org refiling
 *** TODO setup org-contacts
 *** TODO setup elpher mode (gopher and gemini client)
@@ -38,6 +39,7 @@
 *** TODO look into opening symbolic links to files under version control
 *** TODO look up my old emacs config for interesting code snippets
 *** TODO setup some functions and variable to use throughout this configuration
+*** POSTPONE setup UTF-8 encoding
 *** POSTPONE google-translate?
     https://github.com/atykhonov/google-translate
 *** POSTPONE org-super-agenda?
@@ -160,12 +162,6 @@
     When killing a line also kill the newline character
 #+begin_src emacs-lisp :tangle no
   (setq-default kill-whole-line t)
-#+end_src
-*** ansi-term
-    This is a decent terminal emulator. I now use multi-term.
-#+begin_src emacs-lisp :tangle no
-  (defun arh/ansi-term () (interactive) (ansi-term "bash"))
-  (global-set-key (kbd "C-c t") 'arh/ansi-term)
 #+end_src
 *** save place
     Remebers location of point in a buffer.
@@ -373,71 +369,38 @@
 *** [[https://github.com/Fuco1/smartparens][smartparens]]
     Install according to these instructions: [[https://ebzzry.io/en/emacs-pairs/][Emacs and Pairs]]
     #+begin_src emacs-lisp :tangle yes
-      ;; First: M-x package-install RET smartparens RET
-      ;; above command is not necessary
       (use-package smartparens-config
 	:ensure smartparens
 	:diminish smartparens-mode
-	:config (progn (show-smartparens-global-mode t)))
-
-      (add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
+	:config
+	;; (progn (show-smartparens-global-mode t))
+	(add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
+	)
       ;; (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
       ;; (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
       ;; smartparens seems to break C-- C-k to kill a line backwards
       ;; workaround: C-0 C-k also kills a line backwards!
     #+end_src
 *** language specific packages
-**** old setup
-     Use =:tangle no= to prevent extraction of this code block. I can
-     leave the code uncommented. Better display on github. :-)
-     #+begin_src emacs-lisp :tangle no
-       ;; ================================================================================
-       ;; old setup
-       ;; C#
-       ;; csharp-mode
-       (use-package csharp-mode
-	 :ensure t
-	 :mode "\\.cs\\'"
-	 )
+**** python
+**** csharp
+#+begin_src emacs-lisp :tangle yes
+  (use-package csharp-mode
+    :ensure t
+    :mode "\\.cs\\'"
+    )
 
-       ;; omnisharp
-       ;; https://github.com/OmniSharp/omnisharp-emacs
-       ;; on first start: M-x omnisharp-install-server
-       ;; FIXME auto start omnisharp server?
-       (use-package omnisharp
-	 :ensure t
-	 :after company
-	 :hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
-	 :config (add-to-list 'company-backends 'company-omnisharp))
-
-
-       ;; python
-       ;; anaconda needs setuptools
-       ;; setuptools for python3 has already been installed on my system (Debian 10)
-       ;; to use python3 set this variable
-       (setq python-shell-interpreter "python3")
-       ;; anaconda
-       ;; https://github.com/pythonic-emacs/anaconda-mode
-       (use-package anaconda-mode
-	 :ensure t
-	 :hook ((python-mode . anaconda-mode) ;; -hook is added by use-package.el
-		(python-mode . anaconda-eldoc-mode))
-	 )
-
-       (use-package company-anaconda
-	 :ensure t
-	 :after company
-	 :config (add-to-list 'company-backends 'company-anaconda)
-	 )
-
-       ;; fsharp-mode
-       ;; https://github.com/fsharp/emacs-fsharp-mode
-       (use-package fsharp-mode
-	 :defer t
-	 :ensure t
-	 :config (require 'eglot-fsharp)
-	 )
-     #+end_src
+  ;; omnisharp
+  ;; https://github.com/OmniSharp/omnisharp-emacs
+  ;; on first start: M-x omnisharp-install-server
+  ;; FIXME auto start omnisharp server?
+  (use-package omnisharp
+    :ensure t
+    :after company
+    :hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
+    :config (add-to-list 'company-backends 'company-omnisharp)
+    )
+#+end_src
 * when emacs closes
   Apparently I need to delete arthur.el file otherwise Emacs won't see
   changes to =arthur.org=.
