@@ -539,7 +539,7 @@
    Syntax highlighting, code completion and linting seem to work. I'm
    getting the hang of it. LSP is pretty cool. No more fiddling around
    with configuring company mode and flycheck mode.
-#+begin_src emacs-lisp :tangle nos
+#+begin_src emacs-lisp :tangle no
   (use-package csharp-mode
     :ensure t
     :mode "\\.cs\\'"
@@ -553,29 +553,31 @@
 	   ;; if you want which-key integration
 	   (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp
-    ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     :config
-    ;; (define-key lsp-mode-map (kbd "C-c y") lsp-command-map)
-    ;; (setq lsp-keymap-prefix (kbd "C-c y"))
     (setq lsp-signature-auto-activate t
-	  lsp-signature-doc-lines 1)
+	  lsp-signature-doc-lines 1
+	  lsp-diagnostics-provider :flycheck
+	  lsp-ui-sideline-update-mode "line"
+	  lsp-ui-sideline-show-diagnostics nil
+	  )
     ;; (setq lsp-csharp-server-install-dir "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/omnisharp")
     ;; find out the path of the server downloaded by omnisharp package. Use that path. Maybe lsp sees it correctly
     (setq lsp-csharp-server-path "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/run")
     )
 
-  ;; (use-package lsp-ui
-  ;;   :ensure t
-  ;;   :after lsp-mode
-  ;;   :commands lsp-ui-mode
-  ;;   )
+
+  (use-package lsp-ui
+    :ensure t
+    :after lsp-mode
+    :commands lsp-ui-mode
+    )
 #+end_src
-** python lsp pyls (palantir)
+** python lsp pyls (palantir) DISABLED
    Run the following code in bash: =pip3 install 'python-language-server[all]'=
 
    Lsp is really easy to configure. I like it. I'm going to switch to
    it altogether.
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (use-package python-mode
     :ensure t
     :config (setq python-shell-interpreter "python3")
