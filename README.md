@@ -1,20 +1,20 @@
 
 # Table of Contents
 
-1.  [Emacs configuration](#org3325983)
-    1.  [todo items](#orgab16012)
-        1.  [clean up beginner recommendations](#org7f7cf58)
-2.  [For beginners](#orgaab8b44)
-    1.  [Basic configurations](#org7ffc3b8)
-    2.  [Emacs documenation](#orgbd27e3a)
-        1.  [Manual](#orgf5e3afd)
-        2.  [Emacs lisp](#org5e66291)
-    3.  [org-mode](#org875ddc1)
-    4.  [configurations by Emacs power users](#org319d1e3)
-3.  [Compiling Emacs 27.1 on Debian Buster (10)](#orgc5a92a8)
+1.  [Emacs configuration](#orgc5eec19)
+    1.  [todo items](#org557dbc7)
+        1.  [clean up beginner recommendations](#orgbabe5da)
+2.  [For beginners](#orge4b4757)
+    1.  [Basic configurations](#org220a326)
+    2.  [Emacs documenation](#orgd6158de)
+        1.  [Manual](#org206b9a8)
+        2.  [Emacs lisp](#org92ed81d)
+    3.  [org-mode](#org30e0a57)
+    4.  [configurations by Emacs power users](#org2ecf69a)
+3.  [Compiling Emacs 27.1 on Debian Buster (10)](#orgeabe84a)
 
 
-<a id="org3325983"></a>
+<a id="orgc5eec19"></a>
 
 # Emacs configuration
 
@@ -35,17 +35,17 @@ you to extend Emacs to your liking.
 -   [The most successful malleable system in history](https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/)
 
 
-<a id="orgab16012"></a>
+<a id="org557dbc7"></a>
 
 ## todo items
 
 
-<a id="org7f7cf58"></a>
+<a id="orgbabe5da"></a>
 
 ### TODO clean up beginner recommendations
 
 
-<a id="orgaab8b44"></a>
+<a id="orge4b4757"></a>
 
 # For beginners
 
@@ -54,7 +54,7 @@ tutorial. Press C-h t to start the tutorial. This means: press
 Ctrl-h followed by t.
 
 
-<a id="org7ffc3b8"></a>
+<a id="org220a326"></a>
 
 ## Basic configurations
 
@@ -65,19 +65,19 @@ customizations:
 -   [Configuring Emacs from Scratch - Intro](https://medium.com/@suvratapte/configuring-emacs-from-scratch-intro-3157bed9d040)
 
 
-<a id="orgbd27e3a"></a>
+<a id="orgd6158de"></a>
 
 ## Emacs documenation
 
 
-<a id="orgf5e3afd"></a>
+<a id="org206b9a8"></a>
 
 ### Manual
 
 -   [GNU Emacs manual](https://www.gnu.org/software/emacs/manual/emacs.html)
 
 
-<a id="org5e66291"></a>
+<a id="org92ed81d"></a>
 
 ### Emacs lisp
 
@@ -88,7 +88,7 @@ Leveraging the power of Emacs requires learning Emacs lisp.
 -   [GNU Emacs Lisp Reference Manual](https://www.gnu.org/software/emacs/manual/elisp.html) (not really needed by beginners)
 
 
-<a id="org875ddc1"></a>
+<a id="org30e0a57"></a>
 
 ## org-mode
 
@@ -100,7 +100,7 @@ your life in plain text files.
 -   [org-mode setup by norang.ca](http://doc.norang.ca/org-mode.html)
 
 
-<a id="org319d1e3"></a>
+<a id="org2ecf69a"></a>
 
 ## configurations by Emacs power users
 
@@ -117,7 +117,7 @@ for Emacs!
 -   [Emacs config by Doug Davis](https://github.com/douglasdavis/dot-emacs)
 
 
-<a id="orgc5a92a8"></a>
+<a id="orgeabe84a"></a>
 
 # Compiling Emacs 27.1 on Debian Buster (10)
 
