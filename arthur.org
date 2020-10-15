@@ -23,6 +23,7 @@
   the problem by hardlinking.
 ** todo
 *** DONE python mode
+*** TODO rename arthur.org to configuration.org
 *** TODO experiment with palantir lsp for python
 *** TODO hydra
 *** TODO ivy
@@ -567,5 +568,48 @@
   ;;   :ensure t
   ;;   :after lsp-mode
   ;;   :commands lsp-ui-mode
+  ;;   )
+#+end_src
+** python lsp pyls (palantir)
+   Run the following code: =pip3 install 'python-language-server[all]'=
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package python-mode
+    :ensure t
+    :config (setq python-shell-interpreter "python3")
+    (setq tab-width 4)
+    )
+
+  (use-package lsp-mode
+    :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
+    :ensure t
+    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+	   (python-mode . lsp)
+	   ;; if you want which-key integration
+	   (lsp-mode . lsp-enable-which-key-integration))
+    :commands lsp
+    ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    :config
+    ;; (define-key lsp-mode-map (kbd "C-c y") lsp-command-map)
+    ;; (setq lsp-keymap-prefix (kbd "C-c y"))
+    (setq lsp-signature-auto-activate t
+	  lsp-signature-doc-lines 1
+	  lsp-enable-imenu t)
+    )
+
+  (use-package lsp-ui
+    :ensure t
+    :after lsp-mode
+    :commands lsp-ui-mode
+    )
+
+  ;; (use-package lsp-python-ms
+  ;;   :ensure t
+  ;;   :after lsp-mode
+  ;;   :init (setq lsp-python-ms-auto-install-server t)
+  ;;   :hook (python-mode . (lambda ()
+  ;; 			  (require 'lsp-python-ms)
+  ;; 			  (lsp)))
+  ;;   :config (setq lsp-python-ms-python-executable-cmd "python3")
   ;;   )
 #+end_src
