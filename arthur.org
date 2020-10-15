@@ -22,9 +22,8 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** DONE python mode
+*** TODO switch to LSP
 *** TODO rename arthur.org to configuration.org
-*** TODO experiment with palantir lsp for python
 *** TODO hydra
 *** TODO ivy
 *** TODO add some utility functions
@@ -488,7 +487,7 @@
     ;; (add-hook 'kill-emacs-hook (lambda () (delete-file "/home/arthur/.emacs.d/arthur.el")))
   #+end_src
 * experiments with LSP
-** python lsp DISABLED
+** python lsp Microsoft python language server DISABLED
 #+begin_src emacs-lisp :tangle no
   (use-package python-mode
     :ensure t
@@ -561,6 +560,7 @@
     (setq lsp-signature-auto-activate t
 	  lsp-signature-doc-lines 1)
     ;; (setq lsp-csharp-server-install-dir "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/omnisharp")
+    ;; find out the path of the server downloaded by omnisharp package. Use that path. Maybe lsp sees it correctly
     (setq lsp-csharp-server-path "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/run")
     )
 
@@ -571,8 +571,10 @@
   ;;   )
 #+end_src
 ** python lsp pyls (palantir)
-   Run the following code: =pip3 install 'python-language-server[all]'=
+   Run the following code in bash: =pip3 install 'python-language-server[all]'=
 
+   Lsp is really easy to configure. I like it. I'm going to switch to
+   it altogether.
 #+begin_src emacs-lisp :tangle yes
   (use-package python-mode
     :ensure t
