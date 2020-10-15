@@ -6,17 +6,20 @@
   with orgmode (agenda, todo items, spreadsheets, lists, notes, plan
   projects, literate programming, manage contacts), write documents,
   publish to your blog, write programs, etc. The possibilities are
-  endless. It is an integrated /computing/ environment.
+  endless. Emacs has its own programming language Emacs Lisp. It allow
+  you to extend Emacs to your liking.
   - [[https://www.youtube.com/watch?v=jNa3axo40qM][Multiple cursors and macros]] *impressive!* (4 minute video)
   - [[https://www.youtube.com/watch?v=SzA2YODtgK4][Getting Started With Org Mode]] *recommended* (hour long presentation)
   - [[https://www.gnu.org/software/emacs/tour/index.html][A Guided Tour of Emacs]]
   - [[https://batsov.com/articles/2011/11/19/why-emacs/][Why Emacs? by Bozhidar Batsov]]
   - [[https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/][The most successful malleable system in history]]
+** todo items
+*** TODO clean up beginner recommendations
 * For beginners
   Learning Emacs is a life long journey. Start by reading the
   tutorial. Press C-h t to start the tutorial. This means: press
   Ctrl-h followed by t.
-** basic configurations
+** Basic configurations
    After reading the tutorial experiment with these basic
    customizations:
    - [[https://www.youtube.com/watch?v=FRu8SRWuUko][Emacs configuration in 24 minutes]]
