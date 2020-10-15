@@ -22,7 +22,6 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO switch to LSP
 *** TODO rename arthur.org to configuration.org
 *** TODO hydra
 *** TODO ivy
@@ -32,7 +31,6 @@
 *** TODO php-mode
 *** TODO configure org refiling
 *** TODO setup org-contacts
-*** TODO setup elpher mode (gopher and gemini client)
 *** TODO consider using ivy
 *** TODO install magit
 *** TODO configure var use-package-hook-name-suffix
@@ -50,6 +48,8 @@
 *** POSTPONE choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
+*** DONE switch to LSP
+*** DONE setup elpher mode (gopher and gemini client)
 * startup
 ** utilities
    Define some nice utility functions.
