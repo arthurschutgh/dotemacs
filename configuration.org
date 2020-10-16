@@ -23,31 +23,31 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO clean up LSP section
-*** TODO clean up emacs and opening symlinks section (delete it?)
-*** TODO configure language modes and lsp.
+*** DONE clean up LSP section
+*** DONE configure language modes and lsp.
+**** CANCELED bash?
+**** CANCELED php
 **** DONE python
 **** DONE C#
 **** DONE powershell
-**** TODO bash?
-**** TODO php
-*** TODO consider using helm or ivy
+*** TODO install magit
 *** TODO hydra
+*** TODO consider using helm or ivy
 *** TODO add some utility functions
 *** TODO web-mode
 *** TODO skewer
 *** TODO php-mode
 *** TODO configure org refiling
 *** TODO setup org-contacts
-*** TODO install magit
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
     to be as explicit as possible.
 *** TODO let company refrain from completion in comment blocks
 *** TODO read use-package documentation about deferred loading of packages
-*** TODO look into opening symbolic links to files under version control
 *** TODO look up my old emacs config for interesting code snippets
 *** TODO setup some functions and variable to use throughout this configuration
+*** TODO look into opening symbolic links to files under version control
+*** TODO clean up emacs and opening symlinks section (delete it?)
 *** POSTPONE setup UTF-8 encoding
 *** POSTPONE google-translate?
     https://github.com/atykhonov/google-translate
