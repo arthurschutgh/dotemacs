@@ -23,15 +23,16 @@
   the problem by hardlinking.
 ** todo
 *** TODO rename arthur.org to configuration.org
+*** TODO setup specific archive file for this configuration
+*** TODO clean up LSP section
+*** TODO consider using helm or ivy
 *** TODO hydra
-*** TODO ivy
 *** TODO add some utility functions
 *** TODO web-mode
 *** TODO skewer
 *** TODO php-mode
 *** TODO configure org refiling
 *** TODO setup org-contacts
-*** TODO consider using ivy
 *** TODO install magit
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
@@ -253,6 +254,10 @@
    )
  #+end_src
 *** [[https://github.com/akermu/emacs-libvterm][vterm]]
+    Vterm is probably the best terminal emulator for Emacs. Pressing
+    F10 closes Midnight Commander when opened in vterm. Vterm
+    integrates well with perspective. You can open multiple vterms,
+    etc.. It doesn't seem to work with orpie.
 #+begin_src emacs-lisp :tangle yes
   (use-package vterm
     :init (setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
@@ -415,7 +420,7 @@
     :ensure t
     )
 #+end_src
-*** language specific packages
+*** language specific packages OLD SETUP
 **** python DISABLED
 #+begin_src emacs-lisp :tangle no
   (use-package python-mode
