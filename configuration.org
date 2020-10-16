@@ -3,16 +3,16 @@
 ** introduction
    This is my emacs configuration. Put the following code in init.el:
    #+begin_src emacs-lisp :tangle no
-    (require 'org)
-    (org-babel-load-file "/home/arthur/.emacs.d/arthur.org")
+     (require 'org)
+     (org-babel-load-file "/home/arthur/.emacs.d/configuration.org")
    #+end_src
 
    Above code extracts all code blocks with keyword =:tangle yes= from
    this file and executes it.
 
-   =init.el= and =arthur.org= live in =~/projects/emacs.d/= I have one
-   hardlink in =~/.emacs.d/=. =~/.emacs.d/arthur.org= has target
-   =~/projects/emacs.d/arthur.org=.
+   =init.el= and =configuration.org= live in =~/projects/emacs.d/= I have one
+   hardlink in =~/.emacs.d/=. =~/.emacs.d/configuration.org= has target
+   =~/projects/emacs.d/configuration.org=.
 
    Make sure =~/.emacs= does not exist.
 ** emacs and opening symlinks that point to files under version control
