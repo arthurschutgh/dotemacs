@@ -9,5 +9,6 @@
 # but not these files
 !README.org
 !README.md
-!arthur.org
+!configuration.org
 !.gitignore
+!configuration.org_archive
