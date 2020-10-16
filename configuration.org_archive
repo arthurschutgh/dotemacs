@@ -1,0 +1,72 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/arthur/projects/emacs.d/configuration.org
+
+
+* language specific packages
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-16 Fri 07:39
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: packages/programming
+  :ARCHIVE_CATEGORY: configuration
+  :END:
+** python
+#+begin_src emacs-lisp :tangle no
+  (use-package python-mode
+    :ensure t
+  ;;  :after eglot
+    :config
+    (setq python-shell-interpreter "python3"
+	  python-shell-interpreter-args "-i"
+	  tab-width 4)
+    )
+
+  (use-package elpy
+    :ensure t
+    ;; :pin melpa-stable
+    ;; :after python-mode
+    :config
+    (elpy-enable)
+    (setq elpy-rpc-python-command "python3")
+
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+    ;; update: elpy uses company for completion
+    ;; leave code completion to elpy
+    ;; (add-hook 'org-csharp-hook (lambda () (company-mode -1)))
+    )
+
+  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+  ;; ;; http://tkf.github.io/emacs-jedi/latest/#configuration
+  ;; ;; https://archive.zhimingwang.org/blog/2015-04-26-using-python-3-with-emacs-jedi.html
+  ;; (use-package company-jedi
+  ;;   :ensure t
+  ;;   :after elpy
+  ;;   :config
+  ;;   (add-to-list 'company-backends 'company-jedi)
+  ;;   (add-hook 'python-mode-hook 'jedi:setup)
+  ;;   (setq jedi:environment-root "jedi")
+  ;;   (setq jedi:complete-on-dot t)
+  ;;   )
+#+end_src
+** csharp
+#+begin_src emacs-lisp :tangle no
+  (use-package csharp-mode
+    :ensure t
+    :mode "\\.cs\\'"
+    )
+
+  ;; omnisharp
+  ;; https://github.com/OmniSharp/omnisharp-emacs
+  ;; on first start: M-x omnisharp-install-server
+  ;; FIXME auto start omnisharp server?
+  (use-package omnisharp
+    :ensure t
+    :after company
+    :hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
+    :config (add-to-list 'company-backends 'company-omnisharp)
+    )
+#+end_src
