@@ -24,6 +24,8 @@
   the problem by hardlinking.
 ** todo
 *** TODO clean up LSP section
+*** TODO clean up emacs and opening symlinks section (delete it?)
+*** DONE move LSP section to programming section
 *** TODO consider using helm or ivy
 *** TODO hydra
 *** TODO add some utility functions
@@ -422,6 +424,138 @@
     :ensure t
     )
 #+end_src
+*** language specific
+**** experiments with LSP
+***** python lsp Microsoft python language server DISABLED
+   #+begin_src emacs-lisp :tangle no
+     (use-package python-mode
+       :ensure t
+       :config (setq python-shell-interpreter "python3")
+       (setq tab-width 4)
+       )
+
+     ;; (use-package lsp
+     ;;   :ensure t
+     ;;   :config
+
+     ;;   )
+
+     ;; (setq lsp-keymap-prefix "C-c y")
+
+     (use-package lsp-mode
+       :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
+       :ensure t
+       :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+	      ;; (python-mode . lsp)
+	      ;; if you want which-key integration
+	      (lsp-mode . lsp-enable-which-key-integration))
+       :commands lsp
+       ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+       :config
+       ;; (define-key lsp-mode-map (kbd "C-c y") lsp-command-map)
+       ;; (setq lsp-keymap-prefix (kbd "C-c y"))
+       (setq lsp-signature-auto-activate t
+	     lsp-signature-doc-lines 1)
+       )
+
+     (use-package lsp-ui
+       :ensure t
+       :after lsp-mode
+       :commands lsp-ui-mode
+       )
+
+     (use-package lsp-python-ms
+       :ensure t
+       :after lsp-mode
+       :init (setq lsp-python-ms-auto-install-server t)
+       :hook (python-mode . (lambda ()
+			       (require 'lsp-python-ms)
+			       (lsp)))
+       :config (setq lsp-python-ms-python-executable-cmd "python3")
+       )
+   #+end_src
+***** C# lsp DISABLED
+      Syntax highlighting, code completion and linting seem to work. I'm
+      getting the hang of it. LSP is pretty cool. No more fiddling around
+      with configuring company mode and flycheck mode.
+   #+begin_src emacs-lisp :tangle no
+     (use-package csharp-mode
+       :ensure t
+       :mode "\\.cs\\'"
+       )
+
+     (use-package lsp-mode
+       :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
+       :ensure t
+       :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+	      (csharp-mode . lsp)
+	      ;; if you want which-key integration
+	      (lsp-mode . lsp-enable-which-key-integration))
+       :commands lsp
+       :config
+       (setq lsp-signature-auto-activate t
+	     lsp-signature-doc-lines 1
+	     lsp-diagnostics-provider :flycheck
+	     lsp-ui-sideline-update-mode "line"
+	     lsp-ui-sideline-show-diagnostics nil
+	     )
+       ;; (setq lsp-csharp-server-install-dir "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/omnisharp")
+       ;; find out the path of the server downloaded by omnisharp package. Use that path. Maybe lsp sees it correctly
+       (setq lsp-csharp-server-path "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/run")
+       )
+
+
+     (use-package lsp-ui
+       :ensure t
+       :after lsp-mode
+       :commands lsp-ui-mode
+       )
+   #+end_src
+***** python lsp pyls (palantir) DISABLED
+      Run the following code in bash: =pip3 install 'python-language-server[all]'=
+
+      Lsp is really easy to configure. I like it. I'm going to switch to
+      it altogether.
+   #+begin_src emacs-lisp :tangle no
+     (use-package python-mode
+       :ensure t
+       :config (setq python-shell-interpreter "python3")
+       (setq tab-width 4)
+       )
+
+     (use-package lsp-mode
+       :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
+       :ensure t
+       :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+	      (python-mode . lsp)
+	      ;; if you want which-key integration
+	      (lsp-mode . lsp-enable-which-key-integration))
+       :commands lsp
+       ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+       :config
+       ;; (define-key lsp-mode-map (kbd "C-c y") lsp-command-map)
+       ;; (setq lsp-keymap-prefix (kbd "C-c y"))
+       (setq lsp-signature-auto-activate t
+	     lsp-signature-doc-lines 1
+	     lsp-enable-imenu t)
+       )
+
+     (use-package lsp-ui
+       :ensure t
+       :after lsp-mode
+       :commands lsp-ui-mode
+       )
+
+     ;; (use-package lsp-python-ms
+     ;;   :ensure t
+     ;;   :after lsp-mode
+     ;;   :init (setq lsp-python-ms-auto-install-server t)
+     ;;   :hook (python-mode . (lambda ()
+     ;; 			  (require 'lsp-python-ms)
+     ;; 			  (lsp)))
+     ;;   :config (setq lsp-python-ms-python-executable-cmd "python3")
+     ;;   )
+   #+end_src
 * when emacs closes
   Apparently I need to delete arthur.el file otherwise Emacs won't see
   changes to =arthur.org=.
@@ -433,134 +567,3 @@
     (add-hook 'kill-emacs-hook #'persp-state-save) ;; what does # do?
     ;; (add-hook 'kill-emacs-hook (lambda () (delete-file "/home/arthur/.emacs.d/arthur.el")))
   #+end_src
-* experiments with LSP
-** python lsp Microsoft python language server DISABLED
-#+begin_src emacs-lisp :tangle no
-  (use-package python-mode
-    :ensure t
-    :config (setq python-shell-interpreter "python3")
-    (setq tab-width 4)
-    )
-
-  ;; (use-package lsp
-  ;;   :ensure t
-  ;;   :config
-
-  ;;   )
-
-  ;; (setq lsp-keymap-prefix "C-c y")
-
-  (use-package lsp-mode
-    :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
-    :ensure t
-    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-	   ;; (python-mode . lsp)
-	   ;; if you want which-key integration
-	   (lsp-mode . lsp-enable-which-key-integration))
-    :commands lsp
-    ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-    :config
-    ;; (define-key lsp-mode-map (kbd "C-c y") lsp-command-map)
-    ;; (setq lsp-keymap-prefix (kbd "C-c y"))
-    (setq lsp-signature-auto-activate t
-	  lsp-signature-doc-lines 1)
-    )
-
-  (use-package lsp-ui
-    :ensure t
-    :after lsp-mode
-    :commands lsp-ui-mode
-    )
-
-  (use-package lsp-python-ms
-    :ensure t
-    :after lsp-mode
-    :init (setq lsp-python-ms-auto-install-server t)
-    :hook (python-mode . (lambda ()
-			    (require 'lsp-python-ms)
-			    (lsp)))
-    :config (setq lsp-python-ms-python-executable-cmd "python3")
-    )
-#+end_src
-** C# lsp DISABLED
-   Syntax highlighting, code completion and linting seem to work. I'm
-   getting the hang of it. LSP is pretty cool. No more fiddling around
-   with configuring company mode and flycheck mode.
-#+begin_src emacs-lisp :tangle no
-  (use-package csharp-mode
-    :ensure t
-    :mode "\\.cs\\'"
-    )
-
-  (use-package lsp-mode
-    :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
-    :ensure t
-    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-	   (csharp-mode . lsp)
-	   ;; if you want which-key integration
-	   (lsp-mode . lsp-enable-which-key-integration))
-    :commands lsp
-    :config
-    (setq lsp-signature-auto-activate t
-	  lsp-signature-doc-lines 1
-	  lsp-diagnostics-provider :flycheck
-	  lsp-ui-sideline-update-mode "line"
-	  lsp-ui-sideline-show-diagnostics nil
-	  )
-    ;; (setq lsp-csharp-server-install-dir "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/omnisharp")
-    ;; find out the path of the server downloaded by omnisharp package. Use that path. Maybe lsp sees it correctly
-    (setq lsp-csharp-server-path "/home/arthur/.emacs.d/.cache/lsp/omnisharp-roslyn/run")
-    )
-
-
-  (use-package lsp-ui
-    :ensure t
-    :after lsp-mode
-    :commands lsp-ui-mode
-    )
-#+end_src
-** python lsp pyls (palantir) DISABLED
-   Run the following code in bash: =pip3 install 'python-language-server[all]'=
-
-   Lsp is really easy to configure. I like it. I'm going to switch to
-   it altogether.
-#+begin_src emacs-lisp :tangle no
-  (use-package python-mode
-    :ensure t
-    :config (setq python-shell-interpreter "python3")
-    (setq tab-width 4)
-    )
-
-  (use-package lsp-mode
-    :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
-    :ensure t
-    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-	   (python-mode . lsp)
-	   ;; if you want which-key integration
-	   (lsp-mode . lsp-enable-which-key-integration))
-    :commands lsp
-    ;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-    :config
-    ;; (define-key lsp-mode-map (kbd "C-c y") lsp-command-map)
-    ;; (setq lsp-keymap-prefix (kbd "C-c y"))
-    (setq lsp-signature-auto-activate t
-	  lsp-signature-doc-lines 1
-	  lsp-enable-imenu t)
-    )
-
-  (use-package lsp-ui
-    :ensure t
-    :after lsp-mode
-    :commands lsp-ui-mode
-    )
-
-  ;; (use-package lsp-python-ms
-  ;;   :ensure t
-  ;;   :after lsp-mode
-  ;;   :init (setq lsp-python-ms-auto-install-server t)
-  ;;   :hook (python-mode . (lambda ()
-  ;; 			  (require 'lsp-python-ms)
-  ;; 			  (lsp)))
-  ;;   :config (setq lsp-python-ms-python-executable-cmd "python3")
-  ;;   )
-#+end_src
