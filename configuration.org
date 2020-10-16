@@ -1,3 +1,4 @@
+#+ARCHIVE: %s_archive::
 * emacs config
 ** introduction
    This is my emacs configuration. Put the following code in init.el:
@@ -22,8 +23,6 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO rename arthur.org to configuration.org
-*** TODO setup specific archive file for this configuration
 *** TODO clean up LSP section
 *** TODO consider using helm or ivy
 *** TODO hydra
@@ -49,6 +48,9 @@
 *** POSTPONE choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
+*** DONE rename arthur.org to configuration.org
+*** DONE setup specific archive file for this configuration
+*** DONE add archive file to git repository
 *** DONE switch to LSP
 *** DONE setup elpher mode (gopher and gemini client)
 * startup
@@ -418,66 +420,6 @@
   (use-package eglot
     :after (:all company flycheck)
     :ensure t
-    )
-#+end_src
-*** language specific packages OLD SETUP
-**** python DISABLED
-#+begin_src emacs-lisp :tangle no
-  (use-package python-mode
-    :ensure t
-  ;;  :after eglot
-    :config
-    (setq python-shell-interpreter "python3"
-	  python-shell-interpreter-args "-i"
-	  tab-width 4)
-    )
-
-  (use-package elpy
-    :ensure t
-    ;; :pin melpa-stable
-    ;; :after python-mode
-    :config
-    (elpy-enable)
-    (setq elpy-rpc-python-command "python3")
-
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-    (add-hook 'elpy-mode-hook 'flycheck-mode)
-
-    ;; update: elpy uses company for completion
-    ;; leave code completion to elpy
-    ;; (add-hook 'org-csharp-hook (lambda () (company-mode -1)))
-    )
-
-  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
-
-  ;; ;; http://tkf.github.io/emacs-jedi/latest/#configuration
-  ;; ;; https://archive.zhimingwang.org/blog/2015-04-26-using-python-3-with-emacs-jedi.html
-  ;; (use-package company-jedi
-  ;;   :ensure t
-  ;;   :after elpy
-  ;;   :config
-  ;;   (add-to-list 'company-backends 'company-jedi)
-  ;;   (add-hook 'python-mode-hook 'jedi:setup)
-  ;;   (setq jedi:environment-root "jedi")
-  ;;   (setq jedi:complete-on-dot t)
-  ;;   )
-#+end_src
-**** csharp DISABLED
-#+begin_src emacs-lisp :tangle no
-  (use-package csharp-mode
-    :ensure t
-    :mode "\\.cs\\'"
-    )
-
-  ;; omnisharp
-  ;; https://github.com/OmniSharp/omnisharp-emacs
-  ;; on first start: M-x omnisharp-install-server
-  ;; FIXME auto start omnisharp server?
-  (use-package omnisharp
-    :ensure t
-    :after company
-    :hook (csharp-mode . omnisharp-mode) ;; -hook is added by use-package.el
-    :config (add-to-list 'company-backends 'company-omnisharp)
     )
 #+end_src
 * when emacs closes
