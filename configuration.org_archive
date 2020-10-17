@@ -125,3 +125,52 @@ Archived entries from file /home/arthur/projects/emacs.d/configuration.org
     :config (setq lsp-python-ms-python-executable-cmd "python3")
     )
 #+end_src
+
+* python lsp pyls (palantir)
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-17 Sat 11:17
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: packages/programming
+  :ARCHIVE_CATEGORY: configuration
+  :END:
+   Run the following code in bash: =pip3 install 'python-language-server[all]'=
+
+   Lsp is really easy to configure. I like it. I'm going to switch to
+   it altogether.
+#+begin_src emacs-lisp :tangle no
+  (use-package python-mode
+    :ensure t
+    :config (setq python-shell-interpreter "python3")
+    (setq tab-width 4)
+    )
+
+  (use-package lsp-mode
+    :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
+    :ensure t
+    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+	   (python-mode . lsp)
+	   ;; if you want which-key integration
+	   (lsp-mode . lsp-enable-which-key-integration))
+    :commands lsp
+    :config
+    (setq lsp-signature-auto-activate t
+	  lsp-signature-doc-lines 1
+	  lsp-enable-imenu t)
+    )
+
+  (use-package lsp-ui
+    :ensure t
+    :after lsp-mode
+    :commands lsp-ui-mode
+    )
+
+  ;; (use-package lsp-python-ms
+  ;;   :ensure t
+  ;;   :after lsp-mode
+  ;;   :init (setq lsp-python-ms-auto-install-server t)
+  ;;   :hook (python-mode . (lambda ()
+  ;; 			  (require 'lsp-python-ms)
+  ;; 			  (lsp)))
+  ;;   :config (setq lsp-python-ms-python-executable-cmd "python3")
+  ;;   )
+#+end_src
