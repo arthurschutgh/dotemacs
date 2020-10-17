@@ -23,22 +23,13 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** DONE clean up LSP section
-*** DONE configure language modes and lsp.
-**** CANCELED bash?
-**** CANCELED php
-**** DONE python
-**** DONE C#
-**** DONE powershell
-*** TODO install magit
-*** TODO hydra
-*** TODO consider using helm or ivy
+*** TODO setup org-contacts
+*** TODO read docs about magit, use-pacage, projectile, counsel / ivy, counsel-projectile
 *** TODO add some utility functions
 *** TODO web-mode
 *** TODO skewer
 *** TODO php-mode
 *** TODO configure org refiling
-*** TODO setup org-contacts
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
     to be as explicit as possible.
@@ -51,10 +42,21 @@
 *** POSTPONE setup UTF-8 encoding
 *** POSTPONE google-translate?
     https://github.com/atykhonov/google-translate
-*** POSTPONE org-super-agenda?
-*** POSTPONE choose directory to put backup files
+*** CANCELED hydra
+*** CANCELED org-super-agenda?
+*** CANCELED choose directory to put backup files
     I plan to use unison to synchronize with my vps. I also want to
     use borgbackup to backup my files to my storagebox at hetzner.
+*** CANCELED consider using helm or ivy
+*** DONE ivy
+*** DONE clean up LSP section
+*** DONE configure language modes and lsp.
+**** CANCELED bash?
+**** CANCELED php
+**** DONE python
+**** DONE C#
+**** DONE powershell
+*** DONE install magit
 *** DONE move LSP section to programming section
 *** DONE rename arthur.org to configuration.org
 *** DONE setup specific archive file for this configuration
@@ -146,6 +148,10 @@
   ;; (setq display-time-default-load-average nil)
   ;; (display-time-mode t)
 #+end_src  
+*** frame title
+    #+begin_src emacs-lisp :tangle yes
+      (setq frame-title-format '((:eval (projectile-project-name))))
+    #+end_src
 ** minor settings
 *** calendar
  #+begin_src emacs-lisp :tangle yes
@@ -191,6 +197,13 @@
 #+end_src
 * packages
 ** general
+*** magit
+#+begin_src emacs-lisp :tangle yes
+  (use-package magit
+    :ensure t
+    :bind ("C-x g" . magit-status)
+    )
+#+end_src    
 *** [[https://thelambdalab.xyz/elpher/][elpher]]
 #+begin_src emacs-lisp :tangle yes
   (use-package elpher
@@ -241,7 +254,7 @@
  #+end_src
 *** [[https://github.com/lewang/flx][flx-ido]]
     flx-ido is recommended by projectile documentation
-    #+begin_src emacs-lisp :tangle yes
+    #+begin_src emacs-lisp :tangle no
       (use-package flx-ido
 	:ensure t
 	:config
@@ -251,6 +264,41 @@
 	(flx-ido-mode 1)
 	(setq ido-enable-flex-matching t)
 	(setq ido-use-faces nil)
+	)
+    #+end_src
+*** [[https://github.com/abo-abo/swiper][ivy]]
+    Code by: [[https://github.com/hrs/][Harry R. Schwartz]]
+#+begin_src emacs-lisp :tangle yes
+  (use-package counsel
+    :pin melpa
+    ;; :after persp-projectile
+    :ensure t
+    :bind
+    ("M-x" . 'counsel-M-x)
+    ("C-s" . 'swiper)
+
+    :config
+    (use-package flx
+      :pin melpa
+      :ensure t)
+    (use-package smex
+      :pin melpa
+      :ensure t)
+
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-initial-inputs-alist nil)
+    (setq ivy-re-builders-alist
+	  '((swiper . ivy--regex-plus)
+	    (t . ivy--regex-fuzzy))))
+#+end_src
+*** [[https://github.com/ericdanan/counsel-projectile][counsel-projectile]]
+    #+begin_src emacs-lisp :tangle yes
+      (use-package counsel-projectile
+	:ensure t
+	:after counsel
+	:config (counsel-projectile-mode)
 	)
     #+end_src
 *** [[https://github.com/manateelazycat/multi-term][multi-term]]
@@ -344,7 +392,8 @@
 	(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 	(setq projectile-project-search-path '("~/projects/" "~/source/repos"))
 	(setq projectile-indexing-method 'alien)
-	;; (setq projectile-switch-project-action 'projectile-dired)
+	(setq projectile-completion-system 'ivy)
+	(setq projectile-switch-project-action 'projectile-dired)
 	(projectile-mode +1)
 	)
     #+end_src
@@ -353,7 +402,7 @@
     own buffer list and its own window layout.
 
     [[https://github.com/nex3/perspective-el#some-musings-on-emacs-window-layouts][Some musings on emacs window layouts]]
-    #+begin_src emacs-lisp :tangle yes
+    #+begin_src emacs-lisp :tangle no
       (use-package perspective
 	:ensure t
 	:after projectile
@@ -364,7 +413,7 @@
     #+end_src
 *** [[https://github.com/bbatsov/persp-projectile][persp-projectile]]
     Provides integration with projectile
-    #+begin_src emacs-lisp :tangle yes
+    #+begin_src emacs-lisp :tangle no
       (use-package persp-projectile
 	:ensure t
 	:after perspective
@@ -495,7 +544,7 @@
     around with configuring company mode and flycheck mode.
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-mode
-    :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
+    :init (setq lsp-keymap-prefix "C-c y")
     :ensure t
     :hook (
 	   (csharp-mode . lsp-deferred)
@@ -518,48 +567,6 @@
     :commands lsp-ui-mode
     )
 #+end_src
-*** python lsp pyls (palantir) DISABLED
-    Run the following code in bash: =pip3 install 'python-language-server[all]'=
-
-    Lsp is really easy to configure. I like it. I'm going to switch to
-    it altogether.
- #+begin_src emacs-lisp :tangle no
-   (use-package python-mode
-     :ensure t
-     :config (setq python-shell-interpreter "python3")
-     (setq tab-width 4)
-     )
-
-   (use-package lsp-mode
-     :init (setq lsp-keymap-prefix "C-c y") ;; this works!!
-     :ensure t
-     :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-	    (python-mode . lsp)
-	    ;; if you want which-key integration
-	    (lsp-mode . lsp-enable-which-key-integration))
-     :commands lsp
-     :config
-     (setq lsp-signature-auto-activate t
-	   lsp-signature-doc-lines 1
-	   lsp-enable-imenu t)
-     )
-
-   (use-package lsp-ui
-     :ensure t
-     :after lsp-mode
-     :commands lsp-ui-mode
-     )
-
-   ;; (use-package lsp-python-ms
-   ;;   :ensure t
-   ;;   :after lsp-mode
-   ;;   :init (setq lsp-python-ms-auto-install-server t)
-   ;;   :hook (python-mode . (lambda ()
-   ;; 			  (require 'lsp-python-ms)
-   ;; 			  (lsp)))
-   ;;   :config (setq lsp-python-ms-python-executable-cmd "python3")
-   ;;   )
- #+end_src
 * when emacs closes
   Apparently I need to delete arthur.el file otherwise Emacs won't see
   changes to =arthur.org=.
@@ -568,6 +575,6 @@
   =arthur.org= is updated in =~/projects/emacs.d= org-babel-load-file sees
   =arthur.org= in =~/.emacs.d/= has changed. (If I understand correctly)
   #+begin_src emacs-lisp :tangle yes
-    (add-hook 'kill-emacs-hook #'persp-state-save) ;; what does # do?
+    ;; (add-hook 'kill-emacs-hook #'persp-state-save) ;; what does # do?
     ;; (add-hook 'kill-emacs-hook (lambda () (delete-file "/home/arthur/.emacs.d/arthur.el")))
   #+end_src
