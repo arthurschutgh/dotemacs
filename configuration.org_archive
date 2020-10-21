@@ -174,3 +174,173 @@ Archived entries from file /home/arthur/projects/emacs.d/configuration.org
   ;;   :config (setq lsp-python-ms-python-executable-cmd "python3")
   ;;   )
 #+end_src
+
+* CANCELED eyebrowse?
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: CANCELED
+  :END:
+  I can do without workspace management for now
+
+* CANCELED treemacs?
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: CANCELED
+  :END:
+  Use dired for now
+
+* CANCELED hydra
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: CANCELED
+  :END:
+
+* CANCELED org-super-agenda?
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: CANCELED
+  :END:
+
+* CANCELED choose directory to put backup files
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: CANCELED
+  :END:
+  I plan to use unison to synchronize with my vps. I also want to
+  use borgbackup to backup my files to my storagebox at hetzner.
+
+* CANCELED consider using helm or ivy
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: CANCELED
+  :END:
+
+* DONE ivy
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE clean up LSP section
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE configure language modes and lsp.
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+** CANCELED bash?
+** CANCELED php
+** DONE python
+** DONE C#
+** DONE powershell
+
+* DONE install magit
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE move LSP section to programming section
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE rename arthur.org to configuration.org
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE setup specific archive file for this configuration
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE add archive file to git repository
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE switch to LSP
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE setup elpher mode (gopher and gemini client)
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:35
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: emacs config/todo
+  :ARCHIVE_CATEGORY: configuration
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* [[https://github.com/manateelazycat/multi-term][multi-term]]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2020-10-18 Sun 17:40
+  :ARCHIVE_FILE: ~/projects/emacs.d/configuration.org
+  :ARCHIVE_OLPATH: packages/general
+  :ARCHIVE_CATEGORY: configuration
+  :END:
+   After ^D the shell closes and the associated buffer.
+#+begin_src emacs-lisp :tangle no
+  (use-package multi-term
+    :ensure t
+    :config
+    ;; (global-set-key (kbd "C-c t") 'multi-term)
+    (setq multi-term-program "/bin/bash")
+  )
+#+end_src

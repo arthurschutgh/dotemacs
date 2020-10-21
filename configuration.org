@@ -23,7 +23,7 @@
   control (~/projects/emacs.d/ is a git repository). For now I solved
   the problem by hardlinking.
 ** todo
-*** TODO setup org-contacts
+*** TODO I really like to use modus-vivendi theme however I don't like its display of src blocks in org files. How to configure?
 *** TODO read docs about magit, use-pacage, projectile, counsel / ivy, counsel-projectile
 *** TODO add some utility functions
 *** TODO web-mode
@@ -39,30 +39,10 @@
 *** TODO setup some functions and variable to use throughout this configuration
 *** TODO look into opening symbolic links to files under version control
 *** TODO clean up emacs and opening symlinks section (delete it?)
+*** POSTPONE setup org-contacts
 *** POSTPONE setup UTF-8 encoding
 *** POSTPONE google-translate?
     https://github.com/atykhonov/google-translate
-*** CANCELED hydra
-*** CANCELED org-super-agenda?
-*** CANCELED choose directory to put backup files
-    I plan to use unison to synchronize with my vps. I also want to
-    use borgbackup to backup my files to my storagebox at hetzner.
-*** CANCELED consider using helm or ivy
-*** DONE ivy
-*** DONE clean up LSP section
-*** DONE configure language modes and lsp.
-**** CANCELED bash?
-**** CANCELED php
-**** DONE python
-**** DONE C#
-**** DONE powershell
-*** DONE install magit
-*** DONE move LSP section to programming section
-*** DONE rename arthur.org to configuration.org
-*** DONE setup specific archive file for this configuration
-*** DONE add archive file to git repository
-*** DONE switch to LSP
-*** DONE setup elpher mode (gopher and gemini client)
 * startup
 ** utilities
    Define some nice utility functions.
@@ -115,7 +95,7 @@
   (setq inhibit-splash-screen t)
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message t)
-  ;; (setq initial-scratch-message nil)
+  (setq initial-scratch-message nil)
 #+end_src
 ** appearance
 *** toolbar, scrollbar and menubar
@@ -128,7 +108,7 @@
     Wombat theme comes with Emacs. I also tried solarized but I don't
     like it in org-mode. I need to find a better theme until then I
     will use wombat.
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (load-theme 'wombat)
 #+end_src
 *** modeline
@@ -197,7 +177,14 @@
 #+end_src
 * packages
 ** general
-*** magit
+*** zenburn
+    #+begin_src emacs-lisp :tangle yes
+      (use-package zenburn-theme
+	:ensure t
+	:config (load-theme 'zenburn t)
+	)
+    #+end_src
+*** [[https://github.com/magit/magit][magit]]
 #+begin_src emacs-lisp :tangle yes
   (use-package magit
     :ensure t
@@ -301,16 +288,6 @@
 	:config (counsel-projectile-mode)
 	)
     #+end_src
-*** [[https://github.com/manateelazycat/multi-term][multi-term]]
-    After ^D the shell closes and the associated buffer.
- #+begin_src emacs-lisp :tangle no
-   (use-package multi-term
-     :ensure t
-     :config
-     ;; (global-set-key (kbd "C-c t") 'multi-term)
-     (setq multi-term-program "/bin/bash")
-   )
- #+end_src
 *** [[https://github.com/akermu/emacs-libvterm][vterm]]
     Vterm is probably the best terminal emulator for Emacs. Pressing
     F10 closes Midnight Commander when opened in vterm. Vterm
@@ -557,7 +534,8 @@
 	  lsp-signature-doc-lines 1
 	  lsp-diagnostics-provider :flycheck
 	  lsp-ui-sideline-update-mode "line"
-	  lsp-ui-sideline-show-diagnostics nil
+	  lsp-ui-sideline-show-diagnostics t
+	  lsp-ui-doc-enable nil
 	  )
     )
 
