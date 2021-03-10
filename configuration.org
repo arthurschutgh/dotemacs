@@ -25,10 +25,12 @@
 ** todo
 *** TODO I really like to use modus-vivendi theme however I don't like its display of src blocks in org files. How to configure?
 *** TODO read docs about magit, use-pacage, projectile, counsel / ivy, counsel-projectile
+*** TODO read docs about emacs helm completion framework
 *** TODO add some utility functions
 *** TODO web-mode
 *** TODO skewer
 *** TODO php-mode
+*** TODO elixir-mode ???
 *** TODO configure org refiling
 *** TODO configure var use-package-hook-name-suffix
     By default -hook is silently added in :hook declarations. I like
@@ -95,7 +97,7 @@
   (setq inhibit-splash-screen t)
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message t)
-  (setq initial-scratch-message nil)
+  ;; (setq initial-scratch-message nil)
 #+end_src
 ** appearance
 *** toolbar, scrollbar and menubar
@@ -177,8 +179,8 @@
 #+end_src
 * packages
 ** general
-*** zenburn
-    #+begin_src emacs-lisp :tangle yes
+*** [[https://github.com/bbatsov/zenburn-emacs][zenburn]]
+    #+begin_src emacs-lisp :tangle no
       (use-package zenburn-theme
 	:ensure t
 	:config (load-theme 'zenburn t)
@@ -293,6 +295,7 @@
     F10 closes Midnight Commander when opened in vterm. Vterm
     integrates well with perspective. You can open multiple vterms,
     etc.. It doesn't seem to work with orpie.
+    [2021-03-10 Wed] Orpie seems to work in vterm
 #+begin_src emacs-lisp :tangle yes
   (use-package vterm
     :init (setq vterm-module-cmake-args "-DUSE_SYSTEM_LIBVTERM=no")
@@ -327,9 +330,9 @@
 	       ("C-c c" . org-capture)
 	       ("C-c b" . org-switchb))
 	:config
-	(setq org-directory "~/projects/old-org/")
-	(setq org-agenda-files '("~/projects/old-org/index.org"))
-	(setq org-archive-location "~/projects/old-org/archive.org::* From %s")
+	(setq org-directory "~/projects/new-org/")
+	(setq org-agenda-files '("~/projects/new-org/index.org"))
+	(setq org-archive-location "~/projects/new-org/archive.org::* From %s")
 	(setq org-agenda-todo-list-sublevels t) ;; show todo sublevels of a todo entry
 	(setq org-startup-folded t)
 	;; (setq org-src-window-setup 'current-window) ;; use current window when editing src blocks with C-c '
@@ -339,17 +342,18 @@
 	;; the lambda in the line above is needed because of the -1 argument
 	(add-hook 'org-capture-mode-hook 'auto-fill-mode) ;; but I do want it in org-capture :-)
 	(setq org-todo-keywords
-	      '((sequence "TODO(t)" "POSTPONE(p)" "|" "DONE(d)" "CANCELED(c)"))
-	      )
+	      '((sequence "TODO(t)" "POSTPONE(p)" "|" "DONE(d)")
+		(sequence "BUY(b)" "|" "PURCHASED(u)")
+		(sequence "|" "CANCELED(c)")))
 	)
 
       (setq org-capture-templates
 	    '(("a" "Maak afspraak")
 	      ;; FIXME: is the following item necessary?
-	      ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/old-org/index.org") "* %T %?")
-	      ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/old-org/index.org") "* %T %?")
-	      ("d" "dagboek" entry (file+datetree "~/projects/old-org/journal.org") "* %U\n%?")
-	      ("n" "notitie" entry (file+headline "~/projects/old-org/notes.org" "Notes")  "* %U %?")
+	      ("aa" "Afspraak vanuit agenda (of vandaag)" entry (file+datetree "~/projects/new-org/index.org") "* %T %?")
+	      ("ad" "Afspraak kies datum" entry (file+datetree+prompt "~/projects/new-org/index.org") "* %T %?")
+	      ("d" "dagboek" entry (file+datetree "~/projects/new-org/journal.org") "* %U\n%?")
+	      ("r" "aantekening (refile)" entry (file+headline "~/projects/new-org/refile.org" "Notes")  "* %U %?")
 	      )
 	    )
     #+end_src
